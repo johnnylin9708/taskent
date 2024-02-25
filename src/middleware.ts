@@ -5,7 +5,6 @@ export default authMiddleware({
   debug: true,
   publicRoutes: ["/"],
   afterAuth(auth, req) {
-    console.log(JSON.stringify(auth));
     if (auth.userId && auth.isPublicRoute) {
       let path = "/select-org";
       if (auth.orgId) {
