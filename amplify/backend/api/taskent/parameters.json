@@ -1,5 +1,6 @@
 {
   "AppSyncApiName": "taskent",
   "DynamoDBBillingMode": "PAY_PER_REQUEST",
-  "DynamoDBEnableServerSideEncryption": false
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthModeLastUpdated": "2024-02-25T08:38:15.590Z"
 }
