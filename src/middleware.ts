@@ -4,8 +4,7 @@ import { NextResponse } from "next/server";
 export default authMiddleware({
   publicRoutes: ["/"],
   afterAuth(auth, req) {
-    console.log(auth);
-    console.log(req);
+    console.log("=========auth=========" + auth);
     /* if (auth.userId && auth.isPublicRoute) {
       let path = "/select-org";
       if (auth.orgId) {
