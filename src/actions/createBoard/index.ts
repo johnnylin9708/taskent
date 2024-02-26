@@ -5,13 +5,9 @@ import { InputType, ReturnType } from "./types";
 import { generateClient } from "aws-amplify/api";
 import { createBoard as CreateBoardMutation } from "@/graphql/mutations";
 import { revalidatePath } from "next/cache";
-import { Board } from "@/API";
 import { createSafeAction } from "@/lib/create-safe-action";
 import { CreateBoardSchema } from "./schema";
-import config from "@/amplifyconfiguration.json";
-import { Amplify } from "aws-amplify";
 
-Amplify.configure(config);
 const handler = async (data: InputType): Promise<ReturnType> => {
   const client = generateClient();
   const { userId } = auth();

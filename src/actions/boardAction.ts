@@ -26,39 +26,39 @@ export const createBoardAction = async (formData: FormData) => {
   redirect("/organization/org_2cqeAYCNtGCK7GI9jh0lL9WKfrG");
 };
 
-export const queryBoardsAction = async () => {
-  "use server";
-  // List all items
+// export const queryBoardsAction = async () => {
+//   "use server";
+//   // List all items
 
-  const allBoards = await client.graphql({
-    query: listBoards,
-  });
+//   const allBoards = await client.graphql({
+//     query: listBoards,
+//   });
 
-  return allBoards.data.listBoards.items;
-};
+//   return allBoards.data.listBoards.items;
+// };
 
-export const queryBoardByIdAction = async (id: string) => {
-  "use server";
-  // Get a specific item
-  const oneBoard = await client.graphql({
-    query: getBoard,
-    variables: { id },
-  });
+// export const queryBoardByIdAction = async (id: string) => {
+//   "use server";
+//   // Get a specific item
+//   const oneBoard = await client.graphql({
+//     query: getBoard,
+//     variables: { id },
+//   });
 
-  return oneBoard;
-};
+//   return oneBoard;
+// };
 
-export const deleteBoardByIdAction = async (id: string) => {
-  "use server";
-  await client.graphql({
-    query: deleteBoard,
-    variables: {
-      input: {
-        id,
-      },
-    },
-  });
+// export const deleteBoardByIdAction = async (id: string) => {
+//   "use server";
+//   await client.graphql({
+//     query: deleteBoard,
+//     variables: {
+//       input: {
+//         id,
+//       },
+//     },
+//   });
 
-  revalidatePath("/organization/org_2cqeAYCNtGCK7GI9jh0lL9WKfrG");
-  redirect("/organization/org_2cqeAYCNtGCK7GI9jh0lL9WKfrG");
-};
+//   revalidatePath("/organization/org_2cqeAYCNtGCK7GI9jh0lL9WKfrG");
+//   redirect("/organization/org_2cqeAYCNtGCK7GI9jh0lL9WKfrG");
+// };
