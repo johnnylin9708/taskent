@@ -6,25 +6,25 @@ import { deleteBoard } from "@/graphql/mutations";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
-const client = generateClient();
+// const client = generateClient();
 
-export const createBoardAction = async (formData: FormData) => {
-  "use server";
-  const name = formData.get("name") as string;
+// export const createBoardAction = async (formData: FormData) => {
+//   "use server";
+//   const name = formData.get("name") as string;
 
-  await client.graphql({
-    query: createBoard,
-    variables: {
-      input: {
-        name,
-        description: "Lorem ipsum dolor sit amet",
-      },
-    },
-  });
+//   await client.graphql({
+//     query: createBoard,
+//     variables: {
+//       input: {
+//         name,
+//         description: "Lorem ipsum dolor sit amet",
+//       },
+//     },
+//   });
 
-  revalidatePath("/organization/org_2cqeAYCNtGCK7GI9jh0lL9WKfrG");
-  redirect("/organization/org_2cqeAYCNtGCK7GI9jh0lL9WKfrG");
-};
+//   revalidatePath("/organization/org_2cqeAYCNtGCK7GI9jh0lL9WKfrG");
+//   redirect("/organization/org_2cqeAYCNtGCK7GI9jh0lL9WKfrG");
+// };
 
 // export const queryBoardsAction = async () => {
 //   "use server";
