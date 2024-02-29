@@ -40,14 +40,13 @@ const handler = async (data: InputType): Promise<ReturnType> => {
       },
     });
   } catch (error) {
-    console.log(error);
     return {
       error: "Failed to copy.",
     };
   }
 
   revalidatePath(`/board/${boardId}`);
-  return { data: list };
+  return { data: list.data.createList };
 };
 
 export const copyList = createSafeAction(CopyListSchema, handler);
