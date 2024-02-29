@@ -3,29 +3,52 @@
 import { auth } from "@clerk/nextjs";
 import { InputType, ReturnType } from "./types";
 import { generateClient } from "aws-amplify/api";
-import { createBoard as CreateBoardMutation } from "@/graphql/mutations";
+import { createBoard as createBoardMutation } from "@/graphql/mutations";
 import { revalidatePath } from "next/cache";
 import { createSafeAction } from "@/lib/create-safe-action";
 import { CreateBoardSchema } from "./schema";
+import config from "@/amplifyconfiguration.json";
+import { Amplify } from "aws-amplify";
 
+Amplify.configure(config);
 const handler = async (data: InputType): Promise<ReturnType> => {
   const client = generateClient();
-  const { userId } = auth();
+  const { userId, orgId } = auth();
 
-  if (!userId) {
+  if (!userId || !orgId) {
     return { error: "Unauthorized" };
   }
 
-  const { name } = data;
+  const { name, image } = data;
+
+  const [imageId, imageThumbUrl, imageFullUrl, imageUserName, imageLinkHTML] =
+    image.split("|");
+
+  if (
+    !imageId ||
+    !imageThumbUrl ||
+    !imageFullUrl ||
+    !imageUserName ||
+    !imageLinkHTML
+  ) {
+    return { error: "Missing fields. Failed to create board." };
+  }
+
   let board;
 
   try {
     board = await client.graphql({
-      query: CreateBoardMutation,
+      query: createBoardMutation,
       variables: {
         input: {
           name,
-          description: "Lorem ipsum dolor sit amet",
+          orgId,
+          imageId,
+          imageThumbUrl,
+          imageFullUrl,
+          imageUserName,
+          imageLinkHTML,
+          description: "",
         },
       },
     });

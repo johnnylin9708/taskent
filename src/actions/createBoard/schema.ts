@@ -7,4 +7,8 @@ export const CreateBoardSchema = z.object({
       invalid_type_error: "Name is required",
     })
     .min(3, { message: "Name is too short" }),
+  image: z.string({
+    required_error: "Image is required",
+    invalid_type_error: "Image is required",
+  }),
 });

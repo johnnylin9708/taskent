@@ -22,7 +22,7 @@ export const FormSubmit = ({
   children,
   disalbed,
   className,
-  variant,
+  variant = "primary",
 }: FormSubmitProps) => {
   const { pending } = useFormStatus();
   return (

@@ -12,8 +12,14 @@ export const onCreateCard = /* GraphQL */ `subscription OnCreateCard($filter: Mo
   onCreateCard(filter: $filter) {
     id
     name
+    order
+    description
+    listID
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
     __typename
   }
 }
@@ -25,8 +31,14 @@ export const onUpdateCard = /* GraphQL */ `subscription OnUpdateCard($filter: Mo
   onUpdateCard(filter: $filter) {
     id
     name
+    order
+    description
+    listID
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
     __typename
   }
 }
@@ -38,8 +50,14 @@ export const onDeleteCard = /* GraphQL */ `subscription OnDeleteCard($filter: Mo
   onDeleteCard(filter: $filter) {
     id
     name
+    order
+    description
+    listID
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
     __typename
   }
 }
@@ -51,8 +69,18 @@ export const onCreateList = /* GraphQL */ `subscription OnCreateList($filter: Mo
   onCreateList(filter: $filter) {
     id
     name
+    order
+    boardID
+    Cards {
+      nextToken
+      startedAt
+      __typename
+    }
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
     __typename
   }
 }
@@ -64,8 +92,18 @@ export const onUpdateList = /* GraphQL */ `subscription OnUpdateList($filter: Mo
   onUpdateList(filter: $filter) {
     id
     name
+    order
+    boardID
+    Cards {
+      nextToken
+      startedAt
+      __typename
+    }
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
     __typename
   }
 }
@@ -77,8 +115,18 @@ export const onDeleteList = /* GraphQL */ `subscription OnDeleteList($filter: Mo
   onDeleteList(filter: $filter) {
     id
     name
+    order
+    boardID
+    Cards {
+      nextToken
+      startedAt
+      __typename
+    }
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
     __typename
   }
 }
@@ -89,10 +137,24 @@ export const onDeleteList = /* GraphQL */ `subscription OnDeleteList($filter: Mo
 export const onCreateBoard = /* GraphQL */ `subscription OnCreateBoard($filter: ModelSubscriptionBoardFilterInput) {
   onCreateBoard(filter: $filter) {
     id
+    orgId
     name
+    imageId
+    imageThumbUrl
+    imageFullUrl
+    imageUserName
+    imageLinkHTML
     description
+    Lists {
+      nextToken
+      startedAt
+      __typename
+    }
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
     __typename
   }
 }
@@ -103,10 +165,24 @@ export const onCreateBoard = /* GraphQL */ `subscription OnCreateBoard($filter: 
 export const onUpdateBoard = /* GraphQL */ `subscription OnUpdateBoard($filter: ModelSubscriptionBoardFilterInput) {
   onUpdateBoard(filter: $filter) {
     id
+    orgId
     name
+    imageId
+    imageThumbUrl
+    imageFullUrl
+    imageUserName
+    imageLinkHTML
     description
+    Lists {
+      nextToken
+      startedAt
+      __typename
+    }
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
     __typename
   }
 }
@@ -117,10 +193,24 @@ export const onUpdateBoard = /* GraphQL */ `subscription OnUpdateBoard($filter: 
 export const onDeleteBoard = /* GraphQL */ `subscription OnDeleteBoard($filter: ModelSubscriptionBoardFilterInput) {
   onDeleteBoard(filter: $filter) {
     id
+    orgId
     name
+    imageId
+    imageThumbUrl
+    imageFullUrl
+    imageUserName
+    imageLinkHTML
     description
+    Lists {
+      nextToken
+      startedAt
+      __typename
+    }
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
     __typename
   }
 }

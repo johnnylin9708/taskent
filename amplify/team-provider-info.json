@@ -10,6 +10,11 @@
       "StackName": "amplify-taskent-dev-130127",
       "StackId": "arn:aws:cloudformation:ap-northeast-1:058264544017:stack/amplify-taskent-dev-130127/c507bac0-d2d1-11ee-8f92-060d816ff421",
       "AmplifyAppId": "dyq8mrtosawlr"
+    },
+    "categories": {
+      "api": {
+        "taskent": {}
+      }
     }
   }
 }

@@ -15,8 +15,14 @@ export const createCard = /* GraphQL */ `mutation CreateCard(
   createCard(input: $input, condition: $condition) {
     id
     name
+    order
+    description
+    listID
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
     __typename
   }
 }
@@ -31,8 +37,14 @@ export const updateCard = /* GraphQL */ `mutation UpdateCard(
   updateCard(input: $input, condition: $condition) {
     id
     name
+    order
+    description
+    listID
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
     __typename
   }
 }
@@ -47,8 +59,14 @@ export const deleteCard = /* GraphQL */ `mutation DeleteCard(
   deleteCard(input: $input, condition: $condition) {
     id
     name
+    order
+    description
+    listID
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
     __typename
   }
 }
@@ -63,8 +81,18 @@ export const createList = /* GraphQL */ `mutation CreateList(
   createList(input: $input, condition: $condition) {
     id
     name
+    order
+    boardID
+    Cards {
+      nextToken
+      startedAt
+      __typename
+    }
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
     __typename
   }
 }
@@ -79,8 +107,18 @@ export const updateList = /* GraphQL */ `mutation UpdateList(
   updateList(input: $input, condition: $condition) {
     id
     name
+    order
+    boardID
+    Cards {
+      nextToken
+      startedAt
+      __typename
+    }
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
     __typename
   }
 }
@@ -95,8 +133,18 @@ export const deleteList = /* GraphQL */ `mutation DeleteList(
   deleteList(input: $input, condition: $condition) {
     id
     name
+    order
+    boardID
+    Cards {
+      nextToken
+      startedAt
+      __typename
+    }
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
     __typename
   }
 }
@@ -110,10 +158,24 @@ export const createBoard = /* GraphQL */ `mutation CreateBoard(
 ) {
   createBoard(input: $input, condition: $condition) {
     id
+    orgId
     name
+    imageId
+    imageThumbUrl
+    imageFullUrl
+    imageUserName
+    imageLinkHTML
     description
+    Lists {
+      nextToken
+      startedAt
+      __typename
+    }
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
     __typename
   }
 }
@@ -127,10 +189,24 @@ export const updateBoard = /* GraphQL */ `mutation UpdateBoard(
 ) {
   updateBoard(input: $input, condition: $condition) {
     id
+    orgId
     name
+    imageId
+    imageThumbUrl
+    imageFullUrl
+    imageUserName
+    imageLinkHTML
     description
+    Lists {
+      nextToken
+      startedAt
+      __typename
+    }
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
     __typename
   }
 }
@@ -144,10 +220,24 @@ export const deleteBoard = /* GraphQL */ `mutation DeleteBoard(
 ) {
   deleteBoard(input: $input, condition: $condition) {
     id
+    orgId
     name
+    imageId
+    imageThumbUrl
+    imageFullUrl
+    imageUserName
+    imageLinkHTML
     description
+    Lists {
+      nextToken
+      startedAt
+      __typename
+    }
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
     __typename
   }
 }

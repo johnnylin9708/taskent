@@ -5,13 +5,21 @@
 export type CreateCardInput = {
   id?: string | null,
   name: string,
+  order?: number | null,
+  description?: string | null,
+  listID: string,
+  _version?: number | null,
 };
 
 export type ModelCardConditionInput = {
   name?: ModelStringInput | null,
+  order?: ModelIntInput | null,
+  description?: ModelStringInput | null,
+  listID?: ModelIDInput | null,
   and?: Array< ModelCardConditionInput | null > | null,
   or?: Array< ModelCardConditionInput | null > | null,
   not?: ModelCardConditionInput | null,
+  _deleted?: ModelBooleanInput | null,
 };
 
 export type ModelStringInput = {
@@ -54,91 +62,16 @@ export type ModelSizeInput = {
   between?: Array< number | null > | null,
 };
 
-export type Card = {
-  __typename: "Card",
-  id: string,
-  name: string,
-  createdAt: string,
-  updatedAt: string,
-};
-
-export type UpdateCardInput = {
-  id: string,
-  name?: string | null,
-};
-
-export type DeleteCardInput = {
-  id: string,
-};
-
-export type CreateListInput = {
-  id?: string | null,
-  name: string,
-};
-
-export type ModelListConditionInput = {
-  name?: ModelStringInput | null,
-  and?: Array< ModelListConditionInput | null > | null,
-  or?: Array< ModelListConditionInput | null > | null,
-  not?: ModelListConditionInput | null,
-};
-
-export type List = {
-  __typename: "List",
-  id: string,
-  name: string,
-  createdAt: string,
-  updatedAt: string,
-};
-
-export type UpdateListInput = {
-  id: string,
-  name?: string | null,
-};
-
-export type DeleteListInput = {
-  id: string,
-};
-
-export type CreateBoardInput = {
-  id?: string | null,
-  name: string,
-  description?: string | null,
-};
-
-export type ModelBoardConditionInput = {
-  name?: ModelStringInput | null,
-  description?: ModelStringInput | null,
-  and?: Array< ModelBoardConditionInput | null > | null,
-  or?: Array< ModelBoardConditionInput | null > | null,
-  not?: ModelBoardConditionInput | null,
-};
-
-export type Board = {
-  __typename: "Board",
-  id: string,
-  name: string,
-  description?: string | null,
-  createdAt: string,
-  updatedAt: string,
-};
-
-export type UpdateBoardInput = {
-  id: string,
-  name?: string | null,
-  description?: string | null,
-};
-
-export type DeleteBoardInput = {
-  id: string,
-};
-
-export type ModelCardFilterInput = {
-  id?: ModelIDInput | null,
-  name?: ModelStringInput | null,
-  and?: Array< ModelCardFilterInput | null > | null,
-  or?: Array< ModelCardFilterInput | null > | null,
-  not?: ModelCardFilterInput | null,
+export type ModelIntInput = {
+  ne?: number | null,
+  eq?: number | null,
+  le?: number | null,
+  lt?: number | null,
+  ge?: number | null,
+  gt?: number | null,
+  between?: Array< number | null > | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
 };
 
 export type ModelIDInput = {
@@ -157,46 +90,226 @@ export type ModelIDInput = {
   size?: ModelSizeInput | null,
 };
 
+export type ModelBooleanInput = {
+  ne?: boolean | null,
+  eq?: boolean | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+};
+
+export type Card = {
+  __typename: "Card",
+  id: string,
+  name: string,
+  order?: number | null,
+  description?: string | null,
+  listID: string,
+  createdAt: string,
+  updatedAt: string,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
+};
+
+export type UpdateCardInput = {
+  id: string,
+  name?: string | null,
+  order?: number | null,
+  description?: string | null,
+  listID?: string | null,
+  _version?: number | null,
+};
+
+export type DeleteCardInput = {
+  id: string,
+  _version?: number | null,
+};
+
+export type CreateListInput = {
+  id?: string | null,
+  name: string,
+  order?: number | null,
+  boardID: string,
+  _version?: number | null,
+};
+
+export type ModelListConditionInput = {
+  name?: ModelStringInput | null,
+  order?: ModelIntInput | null,
+  boardID?: ModelIDInput | null,
+  and?: Array< ModelListConditionInput | null > | null,
+  or?: Array< ModelListConditionInput | null > | null,
+  not?: ModelListConditionInput | null,
+  _deleted?: ModelBooleanInput | null,
+};
+
+export type List = {
+  __typename: "List",
+  id: string,
+  name: string,
+  order?: number | null,
+  boardID: string,
+  Cards?: ModelCardConnection | null,
+  createdAt: string,
+  updatedAt: string,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
+};
+
 export type ModelCardConnection = {
   __typename: "ModelCardConnection",
   items:  Array<Card | null >,
   nextToken?: string | null,
+  startedAt?: number | null,
 };
 
-export type ModelListFilterInput = {
-  id?: ModelIDInput | null,
+export type UpdateListInput = {
+  id: string,
+  name?: string | null,
+  order?: number | null,
+  boardID?: string | null,
+  _version?: number | null,
+};
+
+export type DeleteListInput = {
+  id: string,
+  _version?: number | null,
+};
+
+export type CreateBoardInput = {
+  id?: string | null,
+  orgId?: string | null,
+  name: string,
+  imageId?: string | null,
+  imageThumbUrl?: string | null,
+  imageFullUrl?: string | null,
+  imageUserName?: string | null,
+  imageLinkHTML?: string | null,
+  description?: string | null,
+  _version?: number | null,
+};
+
+export type ModelBoardConditionInput = {
+  orgId?: ModelStringInput | null,
   name?: ModelStringInput | null,
-  and?: Array< ModelListFilterInput | null > | null,
-  or?: Array< ModelListFilterInput | null > | null,
-  not?: ModelListFilterInput | null,
+  imageId?: ModelStringInput | null,
+  imageThumbUrl?: ModelStringInput | null,
+  imageFullUrl?: ModelStringInput | null,
+  imageUserName?: ModelStringInput | null,
+  imageLinkHTML?: ModelStringInput | null,
+  description?: ModelStringInput | null,
+  and?: Array< ModelBoardConditionInput | null > | null,
+  or?: Array< ModelBoardConditionInput | null > | null,
+  not?: ModelBoardConditionInput | null,
+  _deleted?: ModelBooleanInput | null,
+};
+
+export type Board = {
+  __typename: "Board",
+  id: string,
+  orgId?: string | null,
+  name: string,
+  imageId?: string | null,
+  imageThumbUrl?: string | null,
+  imageFullUrl?: string | null,
+  imageUserName?: string | null,
+  imageLinkHTML?: string | null,
+  description?: string | null,
+  Lists?: ModelListConnection | null,
+  createdAt: string,
+  updatedAt: string,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
 };
 
 export type ModelListConnection = {
   __typename: "ModelListConnection",
   items:  Array<List | null >,
   nextToken?: string | null,
+  startedAt?: number | null,
+};
+
+export type UpdateBoardInput = {
+  id: string,
+  orgId?: string | null,
+  name?: string | null,
+  imageId?: string | null,
+  imageThumbUrl?: string | null,
+  imageFullUrl?: string | null,
+  imageUserName?: string | null,
+  imageLinkHTML?: string | null,
+  description?: string | null,
+  _version?: number | null,
+};
+
+export type DeleteBoardInput = {
+  id: string,
+  _version?: number | null,
+};
+
+export type ModelCardFilterInput = {
+  id?: ModelIDInput | null,
+  name?: ModelStringInput | null,
+  order?: ModelIntInput | null,
+  description?: ModelStringInput | null,
+  listID?: ModelIDInput | null,
+  and?: Array< ModelCardFilterInput | null > | null,
+  or?: Array< ModelCardFilterInput | null > | null,
+  not?: ModelCardFilterInput | null,
+  _deleted?: ModelBooleanInput | null,
+};
+
+export enum ModelSortDirection {
+  ASC = "ASC",
+  DESC = "DESC",
+}
+
+
+export type ModelListFilterInput = {
+  id?: ModelIDInput | null,
+  name?: ModelStringInput | null,
+  order?: ModelIntInput | null,
+  boardID?: ModelIDInput | null,
+  and?: Array< ModelListFilterInput | null > | null,
+  or?: Array< ModelListFilterInput | null > | null,
+  not?: ModelListFilterInput | null,
+  _deleted?: ModelBooleanInput | null,
 };
 
 export type ModelBoardFilterInput = {
   id?: ModelIDInput | null,
+  orgId?: ModelStringInput | null,
   name?: ModelStringInput | null,
+  imageId?: ModelStringInput | null,
+  imageThumbUrl?: ModelStringInput | null,
+  imageFullUrl?: ModelStringInput | null,
+  imageUserName?: ModelStringInput | null,
+  imageLinkHTML?: ModelStringInput | null,
   description?: ModelStringInput | null,
   and?: Array< ModelBoardFilterInput | null > | null,
   or?: Array< ModelBoardFilterInput | null > | null,
   not?: ModelBoardFilterInput | null,
+  _deleted?: ModelBooleanInput | null,
 };
 
 export type ModelBoardConnection = {
   __typename: "ModelBoardConnection",
   items:  Array<Board | null >,
   nextToken?: string | null,
+  startedAt?: number | null,
 };
 
 export type ModelSubscriptionCardFilterInput = {
   id?: ModelSubscriptionIDInput | null,
   name?: ModelSubscriptionStringInput | null,
+  order?: ModelSubscriptionIntInput | null,
+  description?: ModelSubscriptionStringInput | null,
+  listID?: ModelSubscriptionIDInput | null,
   and?: Array< ModelSubscriptionCardFilterInput | null > | null,
   or?: Array< ModelSubscriptionCardFilterInput | null > | null,
+  _deleted?: ModelBooleanInput | null,
 };
 
 export type ModelSubscriptionIDInput = {
@@ -229,19 +342,41 @@ export type ModelSubscriptionStringInput = {
   notIn?: Array< string | null > | null,
 };
 
+export type ModelSubscriptionIntInput = {
+  ne?: number | null,
+  eq?: number | null,
+  le?: number | null,
+  lt?: number | null,
+  ge?: number | null,
+  gt?: number | null,
+  between?: Array< number | null > | null,
+  in?: Array< number | null > | null,
+  notIn?: Array< number | null > | null,
+};
+
 export type ModelSubscriptionListFilterInput = {
   id?: ModelSubscriptionIDInput | null,
   name?: ModelSubscriptionStringInput | null,
+  order?: ModelSubscriptionIntInput | null,
+  boardID?: ModelSubscriptionIDInput | null,
   and?: Array< ModelSubscriptionListFilterInput | null > | null,
   or?: Array< ModelSubscriptionListFilterInput | null > | null,
+  _deleted?: ModelBooleanInput | null,
 };
 
 export type ModelSubscriptionBoardFilterInput = {
   id?: ModelSubscriptionIDInput | null,
+  orgId?: ModelSubscriptionStringInput | null,
   name?: ModelSubscriptionStringInput | null,
+  imageId?: ModelSubscriptionStringInput | null,
+  imageThumbUrl?: ModelSubscriptionStringInput | null,
+  imageFullUrl?: ModelSubscriptionStringInput | null,
+  imageUserName?: ModelSubscriptionStringInput | null,
+  imageLinkHTML?: ModelSubscriptionStringInput | null,
   description?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionBoardFilterInput | null > | null,
   or?: Array< ModelSubscriptionBoardFilterInput | null > | null,
+  _deleted?: ModelBooleanInput | null,
 };
 
 export type CreateCardMutationVariables = {
@@ -254,8 +389,14 @@ export type CreateCardMutation = {
     __typename: "Card",
     id: string,
     name: string,
+    order?: number | null,
+    description?: string | null,
+    listID: string,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -269,8 +410,14 @@ export type UpdateCardMutation = {
     __typename: "Card",
     id: string,
     name: string,
+    order?: number | null,
+    description?: string | null,
+    listID: string,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -284,8 +431,14 @@ export type DeleteCardMutation = {
     __typename: "Card",
     id: string,
     name: string,
+    order?: number | null,
+    description?: string | null,
+    listID: string,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -299,8 +452,18 @@ export type CreateListMutation = {
     __typename: "List",
     id: string,
     name: string,
+    order?: number | null,
+    boardID: string,
+    Cards?:  {
+      __typename: "ModelCardConnection",
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -314,8 +477,18 @@ export type UpdateListMutation = {
     __typename: "List",
     id: string,
     name: string,
+    order?: number | null,
+    boardID: string,
+    Cards?:  {
+      __typename: "ModelCardConnection",
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -329,8 +502,18 @@ export type DeleteListMutation = {
     __typename: "List",
     id: string,
     name: string,
+    order?: number | null,
+    boardID: string,
+    Cards?:  {
+      __typename: "ModelCardConnection",
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -343,10 +526,24 @@ export type CreateBoardMutation = {
   createBoard?:  {
     __typename: "Board",
     id: string,
+    orgId?: string | null,
     name: string,
+    imageId?: string | null,
+    imageThumbUrl?: string | null,
+    imageFullUrl?: string | null,
+    imageUserName?: string | null,
+    imageLinkHTML?: string | null,
     description?: string | null,
+    Lists?:  {
+      __typename: "ModelListConnection",
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -359,10 +556,24 @@ export type UpdateBoardMutation = {
   updateBoard?:  {
     __typename: "Board",
     id: string,
+    orgId?: string | null,
     name: string,
+    imageId?: string | null,
+    imageThumbUrl?: string | null,
+    imageFullUrl?: string | null,
+    imageUserName?: string | null,
+    imageLinkHTML?: string | null,
     description?: string | null,
+    Lists?:  {
+      __typename: "ModelListConnection",
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -375,10 +586,24 @@ export type DeleteBoardMutation = {
   deleteBoard?:  {
     __typename: "Board",
     id: string,
+    orgId?: string | null,
     name: string,
+    imageId?: string | null,
+    imageThumbUrl?: string | null,
+    imageFullUrl?: string | null,
+    imageUserName?: string | null,
+    imageLinkHTML?: string | null,
     description?: string | null,
+    Lists?:  {
+      __typename: "ModelListConnection",
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -391,8 +616,14 @@ export type GetCardQuery = {
     __typename: "Card",
     id: string,
     name: string,
+    order?: number | null,
+    description?: string | null,
+    listID: string,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -409,10 +640,74 @@ export type ListCardsQuery = {
       __typename: "Card",
       id: string,
       name: string,
+      order?: number | null,
+      description?: string | null,
+      listID: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
     } | null >,
     nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type SyncCardsQueryVariables = {
+  filter?: ModelCardFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  lastSync?: number | null,
+};
+
+export type SyncCardsQuery = {
+  syncCards?:  {
+    __typename: "ModelCardConnection",
+    items:  Array< {
+      __typename: "Card",
+      id: string,
+      name: string,
+      order?: number | null,
+      description?: string | null,
+      listID: string,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type CardsByListIDQueryVariables = {
+  listID: string,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelCardFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type CardsByListIDQuery = {
+  cardsByListID?:  {
+    __typename: "ModelCardConnection",
+    items:  Array< {
+      __typename: "Card",
+      id: string,
+      name: string,
+      order?: number | null,
+      description?: string | null,
+      listID: string,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
   } | null,
 };
 
@@ -425,8 +720,18 @@ export type GetListQuery = {
     __typename: "List",
     id: string,
     name: string,
+    order?: number | null,
+    boardID: string,
+    Cards?:  {
+      __typename: "ModelCardConnection",
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -443,10 +748,71 @@ export type ListListsQuery = {
       __typename: "List",
       id: string,
       name: string,
+      order?: number | null,
+      boardID: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
     } | null >,
     nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type SyncListsQueryVariables = {
+  filter?: ModelListFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  lastSync?: number | null,
+};
+
+export type SyncListsQuery = {
+  syncLists?:  {
+    __typename: "ModelListConnection",
+    items:  Array< {
+      __typename: "List",
+      id: string,
+      name: string,
+      order?: number | null,
+      boardID: string,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type ListsByBoardIDQueryVariables = {
+  boardID: string,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelListFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListsByBoardIDQuery = {
+  listsByBoardID?:  {
+    __typename: "ModelListConnection",
+    items:  Array< {
+      __typename: "List",
+      id: string,
+      name: string,
+      order?: number | null,
+      boardID: string,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
   } | null,
 };
 
@@ -458,10 +824,24 @@ export type GetBoardQuery = {
   getBoard?:  {
     __typename: "Board",
     id: string,
+    orgId?: string | null,
     name: string,
+    imageId?: string | null,
+    imageThumbUrl?: string | null,
+    imageFullUrl?: string | null,
+    imageUserName?: string | null,
+    imageLinkHTML?: string | null,
     description?: string | null,
+    Lists?:  {
+      __typename: "ModelListConnection",
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -477,12 +857,54 @@ export type ListBoardsQuery = {
     items:  Array< {
       __typename: "Board",
       id: string,
+      orgId?: string | null,
       name: string,
+      imageId?: string | null,
+      imageThumbUrl?: string | null,
+      imageFullUrl?: string | null,
+      imageUserName?: string | null,
+      imageLinkHTML?: string | null,
       description?: string | null,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
     } | null >,
     nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type SyncBoardsQueryVariables = {
+  filter?: ModelBoardFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  lastSync?: number | null,
+};
+
+export type SyncBoardsQuery = {
+  syncBoards?:  {
+    __typename: "ModelBoardConnection",
+    items:  Array< {
+      __typename: "Board",
+      id: string,
+      orgId?: string | null,
+      name: string,
+      imageId?: string | null,
+      imageThumbUrl?: string | null,
+      imageFullUrl?: string | null,
+      imageUserName?: string | null,
+      imageLinkHTML?: string | null,
+      description?: string | null,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
   } | null,
 };
 
@@ -495,8 +917,14 @@ export type OnCreateCardSubscription = {
     __typename: "Card",
     id: string,
     name: string,
+    order?: number | null,
+    description?: string | null,
+    listID: string,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -509,8 +937,14 @@ export type OnUpdateCardSubscription = {
     __typename: "Card",
     id: string,
     name: string,
+    order?: number | null,
+    description?: string | null,
+    listID: string,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -523,8 +957,14 @@ export type OnDeleteCardSubscription = {
     __typename: "Card",
     id: string,
     name: string,
+    order?: number | null,
+    description?: string | null,
+    listID: string,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -537,8 +977,18 @@ export type OnCreateListSubscription = {
     __typename: "List",
     id: string,
     name: string,
+    order?: number | null,
+    boardID: string,
+    Cards?:  {
+      __typename: "ModelCardConnection",
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -551,8 +1001,18 @@ export type OnUpdateListSubscription = {
     __typename: "List",
     id: string,
     name: string,
+    order?: number | null,
+    boardID: string,
+    Cards?:  {
+      __typename: "ModelCardConnection",
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -565,8 +1025,18 @@ export type OnDeleteListSubscription = {
     __typename: "List",
     id: string,
     name: string,
+    order?: number | null,
+    boardID: string,
+    Cards?:  {
+      __typename: "ModelCardConnection",
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -578,10 +1048,24 @@ export type OnCreateBoardSubscription = {
   onCreateBoard?:  {
     __typename: "Board",
     id: string,
+    orgId?: string | null,
     name: string,
+    imageId?: string | null,
+    imageThumbUrl?: string | null,
+    imageFullUrl?: string | null,
+    imageUserName?: string | null,
+    imageLinkHTML?: string | null,
     description?: string | null,
+    Lists?:  {
+      __typename: "ModelListConnection",
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -593,10 +1077,24 @@ export type OnUpdateBoardSubscription = {
   onUpdateBoard?:  {
     __typename: "Board",
     id: string,
+    orgId?: string | null,
     name: string,
+    imageId?: string | null,
+    imageThumbUrl?: string | null,
+    imageFullUrl?: string | null,
+    imageUserName?: string | null,
+    imageLinkHTML?: string | null,
     description?: string | null,
+    Lists?:  {
+      __typename: "ModelListConnection",
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -608,9 +1106,23 @@ export type OnDeleteBoardSubscription = {
   onDeleteBoard?:  {
     __typename: "Board",
     id: string,
+    orgId?: string | null,
     name: string,
+    imageId?: string | null,
+    imageThumbUrl?: string | null,
+    imageFullUrl?: string | null,
+    imageUserName?: string | null,
+    imageLinkHTML?: string | null,
     description?: string | null,
+    Lists?:  {
+      __typename: "ModelListConnection",
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };

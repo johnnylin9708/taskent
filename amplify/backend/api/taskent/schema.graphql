@@ -1,16 +1,29 @@
 type Card @model @auth(rules: [{allow: public}]) {
   id: ID!
   name: String!
+  order: Int
+  description: String
+  listID: ID! @index(name: "byList")
 }
 
 type List @model @auth(rules: [{allow: public}]) {
   id: ID!
   name: String!
+  order: Int
+  boardID: ID! @index(name: "byBoard")
+  Cards: [Card] @hasMany(indexName: "byList", fields: ["id"])
 }
 
 type Board @model @auth(rules: [{allow: public}]) {
   id: ID!
+  orgId: String
   name: String!
+  imageId: String
+  imageThumbUrl: String
+  imageFullUrl: String
+  imageUserName: String
+  imageLinkHTML: String
   description: String
+  Lists: [List] @hasMany(indexName: "byBoard", fields: ["id"])
 }
  
