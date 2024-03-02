@@ -11,6 +11,7 @@ import { ListOptions } from "./listOptions";
 
 interface ListHeaderProps {
   data: List;
+  onAddCard: () => void;
 }
 
 export const ListHeader = ({ data }: ListHeaderProps) => {
@@ -72,9 +73,21 @@ export const ListHeader = ({ data }: ListHeaderProps) => {
     <div className="pt-2 px-2 text-sm font-semibold flex justify-between items-start gap-x-2">
       {isEditing ? (
         <form ref={formRef} action={handleSubmit} className="flex-1 px-[2px]">
-          <input hidden id="id" name="id" value={data.id} />
-          <input hidden id="boardId" name="boardId" value={data.boardID} />
-          <input hidden id="_version" name="_version" value={data._version} />
+          <input readOnly hidden id="id" name="id" value={data.id} />
+          <input
+            readOnly
+            hidden
+            id="boardId"
+            name="boardId"
+            value={data.boardID}
+          />
+          <input
+            readOnly
+            hidden
+            id="_version"
+            name="_version"
+            value={data._version}
+          />
           <FormInput
             ref={inputRef}
             onBlur={onBlur}
