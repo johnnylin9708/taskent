@@ -1,7 +1,9 @@
 import { FormPopover } from "@/components/form/formPopover";
 import { Hint } from "@/components/hint";
 import { Skeleton } from "@/components/ui/skeleton";
+import { MAX_FREE_BOARDS } from "@/constants/board";
 import { listBoards } from "@/graphql/queries";
+import { getAvailableCount } from "@/lib/limit";
 import { auth } from "@clerk/nextjs";
 import { generateClient } from "aws-amplify/api";
 import { HelpCircle, User2 } from "lucide-react";
@@ -19,6 +21,8 @@ export const BoardList = async () => {
     query: listBoards,
     variables: { filter: { orgId: { eq: orgId } } },
   });
+
+  const availableCount = (await getAvailableCount()) || 0;
 
   return (
     <div className="space-y-4">
@@ -44,7 +48,9 @@ export const BoardList = async () => {
             className="aspect-video relative h-full w-full bg-muted rounded-sm flex flex-col gap-y-1 items-center justify-center hover:opacity-75 transition"
           >
             <p className="text-sm">Create new board</p>
-            <span className="text-xs">5 remaining</span>
+            <span className="text-xs">
+              {`${MAX_FREE_BOARDS - availableCount}`} remaining
+            </span>
             <Hint
               sideOffset={40}
               description={

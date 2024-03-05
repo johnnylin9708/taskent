@@ -8,6 +8,265 @@ type GeneratedQuery<InputType, OutputType> = string & {
   __generatedQueryOutput: OutputType;
 };
 
+export const getMemberSubscription = /* GraphQL */ `query GetMemberSubscription($id: ID!) {
+  getMemberSubscription(id: $id) {
+    id
+    orgId
+    userId
+    stripeCustomerId
+    stripeSubscriptionId
+    stripePriceId
+    stripeCurrentPeriodEnd
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetMemberSubscriptionQueryVariables,
+  APITypes.GetMemberSubscriptionQuery
+>;
+export const listMemberSubscriptions = /* GraphQL */ `query ListMemberSubscriptions(
+  $filter: ModelMemberSubscriptionFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listMemberSubscriptions(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      orgId
+      userId
+      stripeCustomerId
+      stripeSubscriptionId
+      stripePriceId
+      stripeCurrentPeriodEnd
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+    nextToken
+    startedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListMemberSubscriptionsQueryVariables,
+  APITypes.ListMemberSubscriptionsQuery
+>;
+export const syncMemberSubscriptions = /* GraphQL */ `query SyncMemberSubscriptions(
+  $filter: ModelMemberSubscriptionFilterInput
+  $limit: Int
+  $nextToken: String
+  $lastSync: AWSTimestamp
+) {
+  syncMemberSubscriptions(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    lastSync: $lastSync
+  ) {
+    items {
+      id
+      orgId
+      userId
+      stripeCustomerId
+      stripeSubscriptionId
+      stripePriceId
+      stripeCurrentPeriodEnd
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+    nextToken
+    startedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.SyncMemberSubscriptionsQueryVariables,
+  APITypes.SyncMemberSubscriptionsQuery
+>;
+export const getLimit = /* GraphQL */ `query GetLimit($id: ID!) {
+  getLimit(id: $id) {
+    id
+    orgId
+    count
+    userId
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    __typename
+  }
+}
+` as GeneratedQuery<APITypes.GetLimitQueryVariables, APITypes.GetLimitQuery>;
+export const listLimits = /* GraphQL */ `query ListLimits(
+  $filter: ModelLimitFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listLimits(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      orgId
+      count
+      userId
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+    nextToken
+    startedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListLimitsQueryVariables,
+  APITypes.ListLimitsQuery
+>;
+export const syncLimits = /* GraphQL */ `query SyncLimits(
+  $filter: ModelLimitFilterInput
+  $limit: Int
+  $nextToken: String
+  $lastSync: AWSTimestamp
+) {
+  syncLimits(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    lastSync: $lastSync
+  ) {
+    items {
+      id
+      orgId
+      count
+      userId
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+    nextToken
+    startedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.SyncLimitsQueryVariables,
+  APITypes.SyncLimitsQuery
+>;
+export const getAuditLog = /* GraphQL */ `query GetAuditLog($id: ID!) {
+  getAuditLog(id: $id) {
+    id
+    orgId
+    action
+    entityId
+    entityType
+    entityName
+    userImage
+    userName
+    userId
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetAuditLogQueryVariables,
+  APITypes.GetAuditLogQuery
+>;
+export const listAuditLogs = /* GraphQL */ `query ListAuditLogs(
+  $filter: ModelAuditLogFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listAuditLogs(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      orgId
+      action
+      entityId
+      entityType
+      entityName
+      userImage
+      userName
+      userId
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+    nextToken
+    startedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListAuditLogsQueryVariables,
+  APITypes.ListAuditLogsQuery
+>;
+export const syncAuditLogs = /* GraphQL */ `query SyncAuditLogs(
+  $filter: ModelAuditLogFilterInput
+  $limit: Int
+  $nextToken: String
+  $lastSync: AWSTimestamp
+) {
+  syncAuditLogs(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    lastSync: $lastSync
+  ) {
+    items {
+      id
+      orgId
+      action
+      entityId
+      entityType
+      entityName
+      userImage
+      userName
+      userId
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+      __typename
+    }
+    nextToken
+    startedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.SyncAuditLogsQueryVariables,
+  APITypes.SyncAuditLogsQuery
+>;
 export const getCard = /* GraphQL */ `query GetCard($id: ID!) {
   getCard(id: $id) {
     id

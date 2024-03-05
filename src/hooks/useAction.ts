@@ -1,4 +1,4 @@
-import { ActionState, FieldErrors } from "@/lib/create-safe-action";
+import { ActionState, FieldErrors } from "@/lib/createSafeAction";
 import { useCallback, useState } from "react";
 
 type Action<TInput, TOutput> = (

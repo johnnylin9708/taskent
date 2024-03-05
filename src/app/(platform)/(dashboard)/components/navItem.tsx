@@ -7,7 +7,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { Activity, CreditCard, Layout, Settings } from "lucide-react";
+import { Activity, Calendar, CreditCard, Layout, Settings } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -40,6 +40,11 @@ export const NavItem = ({
       label: "Boards",
       icon: <Layout className="h-4 w-4 mr-2" />,
       href: `/organization/${organization.id}`,
+    },
+    {
+      label: "Calendar",
+      icon: <Calendar className="h-4 w-4 mr-2" />,
+      href: `/organization/${organization.id}/calendar`,
     },
     {
       label: "Activity",

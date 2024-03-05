@@ -2,12 +2,26 @@
 import { initSchema } from '@aws-amplify/datastore';
 import { schema } from './schema';
 
+const EntityType = {
+  "BOARD": "BOARD",
+  "LIST": "LIST",
+  "CARD": "CARD"
+};
 
+const Action = {
+  "CREATE": "CREATE",
+  "UPDATE": "UPDATE",
+  "DELETE": "DELETE"
+};
 
-const { Card, List, Board } = initSchema(schema);
+const { Limit, AuditLog, Card, List, Board } = initSchema(schema);
 
 export {
+  Limit,
+  AuditLog,
   Card,
   List,
-  Board
+  Board,
+  EntityType,
+  Action
 };

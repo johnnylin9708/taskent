@@ -2,9 +2,93 @@ import { ModelInit, MutableModel, __modelMeta__, ManagedIdentifier } from "@aws-
 // @ts-ignore
 import { LazyLoading, LazyLoadingDisabled, AsyncCollection } from "@aws-amplify/datastore";
 
+export enum EntityType {
+  BOARD = "BOARD",
+  LIST = "LIST",
+  CARD = "CARD"
+}
+
+export enum Action {
+  CREATE = "CREATE",
+  UPDATE = "UPDATE",
+  DELETE = "DELETE"
+}
 
 
 
+type EagerLimit = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<Limit, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly orgId?: string | null;
+  readonly count?: number | null;
+  readonly userId?: string | null;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+type LazyLimit = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<Limit, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly orgId?: string | null;
+  readonly count?: number | null;
+  readonly userId?: string | null;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+export declare type Limit = LazyLoading extends LazyLoadingDisabled ? EagerLimit : LazyLimit
+
+export declare const Limit: (new (init: ModelInit<Limit>) => Limit) & {
+  copyOf(source: Limit, mutator: (draft: MutableModel<Limit>) => MutableModel<Limit> | void): Limit;
+}
+
+type EagerAuditLog = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<AuditLog, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly orgId?: string | null;
+  readonly action?: Action | keyof typeof Action | null;
+  readonly entityId?: string | null;
+  readonly entityType?: EntityType | keyof typeof EntityType | null;
+  readonly entityName?: string | null;
+  readonly userImage?: string | null;
+  readonly userName?: string | null;
+  readonly userId?: string | null;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+type LazyAuditLog = {
+  readonly [__modelMeta__]: {
+    identifier: ManagedIdentifier<AuditLog, 'id'>;
+    readOnlyFields: 'createdAt' | 'updatedAt';
+  };
+  readonly id: string;
+  readonly orgId?: string | null;
+  readonly action?: Action | keyof typeof Action | null;
+  readonly entityId?: string | null;
+  readonly entityType?: EntityType | keyof typeof EntityType | null;
+  readonly entityName?: string | null;
+  readonly userImage?: string | null;
+  readonly userName?: string | null;
+  readonly userId?: string | null;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+}
+
+export declare type AuditLog = LazyLoading extends LazyLoadingDisabled ? EagerAuditLog : LazyAuditLog
+
+export declare const AuditLog: (new (init: ModelInit<AuditLog>) => AuditLog) & {
+  copyOf(source: AuditLog, mutator: (draft: MutableModel<AuditLog>) => MutableModel<AuditLog> | void): AuditLog;
+}
 
 type EagerCard = {
   readonly [__modelMeta__]: {

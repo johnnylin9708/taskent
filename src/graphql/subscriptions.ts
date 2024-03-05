@@ -8,6 +8,198 @@ type GeneratedSubscription<InputType, OutputType> = string & {
   __generatedSubscriptionOutput: OutputType;
 };
 
+export const onCreateMemberSubscription = /* GraphQL */ `subscription OnCreateMemberSubscription(
+  $filter: ModelSubscriptionMemberSubscriptionFilterInput
+) {
+  onCreateMemberSubscription(filter: $filter) {
+    id
+    orgId
+    userId
+    stripeCustomerId
+    stripeSubscriptionId
+    stripePriceId
+    stripeCurrentPeriodEnd
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateMemberSubscriptionSubscriptionVariables,
+  APITypes.OnCreateMemberSubscriptionSubscription
+>;
+export const onUpdateMemberSubscription = /* GraphQL */ `subscription OnUpdateMemberSubscription(
+  $filter: ModelSubscriptionMemberSubscriptionFilterInput
+) {
+  onUpdateMemberSubscription(filter: $filter) {
+    id
+    orgId
+    userId
+    stripeCustomerId
+    stripeSubscriptionId
+    stripePriceId
+    stripeCurrentPeriodEnd
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateMemberSubscriptionSubscriptionVariables,
+  APITypes.OnUpdateMemberSubscriptionSubscription
+>;
+export const onDeleteMemberSubscription = /* GraphQL */ `subscription OnDeleteMemberSubscription(
+  $filter: ModelSubscriptionMemberSubscriptionFilterInput
+) {
+  onDeleteMemberSubscription(filter: $filter) {
+    id
+    orgId
+    userId
+    stripeCustomerId
+    stripeSubscriptionId
+    stripePriceId
+    stripeCurrentPeriodEnd
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteMemberSubscriptionSubscriptionVariables,
+  APITypes.OnDeleteMemberSubscriptionSubscription
+>;
+export const onCreateLimit = /* GraphQL */ `subscription OnCreateLimit($filter: ModelSubscriptionLimitFilterInput) {
+  onCreateLimit(filter: $filter) {
+    id
+    orgId
+    count
+    userId
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateLimitSubscriptionVariables,
+  APITypes.OnCreateLimitSubscription
+>;
+export const onUpdateLimit = /* GraphQL */ `subscription OnUpdateLimit($filter: ModelSubscriptionLimitFilterInput) {
+  onUpdateLimit(filter: $filter) {
+    id
+    orgId
+    count
+    userId
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateLimitSubscriptionVariables,
+  APITypes.OnUpdateLimitSubscription
+>;
+export const onDeleteLimit = /* GraphQL */ `subscription OnDeleteLimit($filter: ModelSubscriptionLimitFilterInput) {
+  onDeleteLimit(filter: $filter) {
+    id
+    orgId
+    count
+    userId
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteLimitSubscriptionVariables,
+  APITypes.OnDeleteLimitSubscription
+>;
+export const onCreateAuditLog = /* GraphQL */ `subscription OnCreateAuditLog($filter: ModelSubscriptionAuditLogFilterInput) {
+  onCreateAuditLog(filter: $filter) {
+    id
+    orgId
+    action
+    entityId
+    entityType
+    entityName
+    userImage
+    userName
+    userId
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateAuditLogSubscriptionVariables,
+  APITypes.OnCreateAuditLogSubscription
+>;
+export const onUpdateAuditLog = /* GraphQL */ `subscription OnUpdateAuditLog($filter: ModelSubscriptionAuditLogFilterInput) {
+  onUpdateAuditLog(filter: $filter) {
+    id
+    orgId
+    action
+    entityId
+    entityType
+    entityName
+    userImage
+    userName
+    userId
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateAuditLogSubscriptionVariables,
+  APITypes.OnUpdateAuditLogSubscription
+>;
+export const onDeleteAuditLog = /* GraphQL */ `subscription OnDeleteAuditLog($filter: ModelSubscriptionAuditLogFilterInput) {
+  onDeleteAuditLog(filter: $filter) {
+    id
+    orgId
+    action
+    entityId
+    entityType
+    entityName
+    userImage
+    userName
+    userId
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteAuditLogSubscriptionVariables,
+  APITypes.OnDeleteAuditLogSubscription
+>;
 export const onCreateCard = /* GraphQL */ `subscription OnCreateCard($filter: ModelSubscriptionCardFilterInput) {
   onCreateCard(filter: $filter) {
     id

@@ -5,10 +5,13 @@ import { InputType, ReturnType } from "./types";
 import { generateClient } from "aws-amplify/api";
 import { createBoard as createBoardMutation } from "@/graphql/mutations";
 import { revalidatePath } from "next/cache";
-import { createSafeAction } from "@/lib/create-safe-action";
+import { createSafeAction } from "@/lib/createSafeAction";
 import { CreateBoardSchema } from "./schema";
 import config from "@/amplifyconfiguration.json";
 import { Amplify } from "aws-amplify";
+import { createAuditLog } from "@/lib/createAuditLog";
+import { Action, EntityType } from "@/API";
+import { hasAvailableCount, incrementAvailableCount } from "@/lib/limit";
 
 Amplify.configure(config);
 const handler = async (data: InputType): Promise<ReturnType> => {
@@ -17,6 +20,15 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 
   if (!userId || !orgId) {
     return { error: "Unauthorized" };
+  }
+
+  const canCreate = await hasAvailableCount();
+
+  if (!canCreate) {
+    return {
+      error:
+        "You've reached your limit of free boards. Please upgrade to create more",
+    };
   }
 
   const { name, image } = data;
@@ -51,6 +63,15 @@ const handler = async (data: InputType): Promise<ReturnType> => {
           description: "",
         },
       },
+    });
+
+    await incrementAvailableCount();
+
+    await createAuditLog({
+      entityId: board.data.createBoard.id,
+      entityName: board.data.createBoard.name,
+      entityType: EntityType.BOARD,
+      action: Action.CREATE,
     });
   } catch (error) {
     return {

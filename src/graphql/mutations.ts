@@ -8,6 +8,219 @@ type GeneratedMutation<InputType, OutputType> = string & {
   __generatedMutationOutput: OutputType;
 };
 
+export const createMemberSubscription = /* GraphQL */ `mutation CreateMemberSubscription(
+  $input: CreateMemberSubscriptionInput!
+  $condition: ModelMemberSubscriptionConditionInput
+) {
+  createMemberSubscription(input: $input, condition: $condition) {
+    id
+    orgId
+    userId
+    stripeCustomerId
+    stripeSubscriptionId
+    stripePriceId
+    stripeCurrentPeriodEnd
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateMemberSubscriptionMutationVariables,
+  APITypes.CreateMemberSubscriptionMutation
+>;
+export const updateMemberSubscription = /* GraphQL */ `mutation UpdateMemberSubscription(
+  $input: UpdateMemberSubscriptionInput!
+  $condition: ModelMemberSubscriptionConditionInput
+) {
+  updateMemberSubscription(input: $input, condition: $condition) {
+    id
+    orgId
+    userId
+    stripeCustomerId
+    stripeSubscriptionId
+    stripePriceId
+    stripeCurrentPeriodEnd
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateMemberSubscriptionMutationVariables,
+  APITypes.UpdateMemberSubscriptionMutation
+>;
+export const deleteMemberSubscription = /* GraphQL */ `mutation DeleteMemberSubscription(
+  $input: DeleteMemberSubscriptionInput!
+  $condition: ModelMemberSubscriptionConditionInput
+) {
+  deleteMemberSubscription(input: $input, condition: $condition) {
+    id
+    orgId
+    userId
+    stripeCustomerId
+    stripeSubscriptionId
+    stripePriceId
+    stripeCurrentPeriodEnd
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteMemberSubscriptionMutationVariables,
+  APITypes.DeleteMemberSubscriptionMutation
+>;
+export const createLimit = /* GraphQL */ `mutation CreateLimit(
+  $input: CreateLimitInput!
+  $condition: ModelLimitConditionInput
+) {
+  createLimit(input: $input, condition: $condition) {
+    id
+    orgId
+    count
+    userId
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateLimitMutationVariables,
+  APITypes.CreateLimitMutation
+>;
+export const updateLimit = /* GraphQL */ `mutation UpdateLimit(
+  $input: UpdateLimitInput!
+  $condition: ModelLimitConditionInput
+) {
+  updateLimit(input: $input, condition: $condition) {
+    id
+    orgId
+    count
+    userId
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateLimitMutationVariables,
+  APITypes.UpdateLimitMutation
+>;
+export const deleteLimit = /* GraphQL */ `mutation DeleteLimit(
+  $input: DeleteLimitInput!
+  $condition: ModelLimitConditionInput
+) {
+  deleteLimit(input: $input, condition: $condition) {
+    id
+    orgId
+    count
+    userId
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteLimitMutationVariables,
+  APITypes.DeleteLimitMutation
+>;
+export const createAuditLog = /* GraphQL */ `mutation CreateAuditLog(
+  $input: CreateAuditLogInput!
+  $condition: ModelAuditLogConditionInput
+) {
+  createAuditLog(input: $input, condition: $condition) {
+    id
+    orgId
+    action
+    entityId
+    entityType
+    entityName
+    userImage
+    userName
+    userId
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateAuditLogMutationVariables,
+  APITypes.CreateAuditLogMutation
+>;
+export const updateAuditLog = /* GraphQL */ `mutation UpdateAuditLog(
+  $input: UpdateAuditLogInput!
+  $condition: ModelAuditLogConditionInput
+) {
+  updateAuditLog(input: $input, condition: $condition) {
+    id
+    orgId
+    action
+    entityId
+    entityType
+    entityName
+    userImage
+    userName
+    userId
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateAuditLogMutationVariables,
+  APITypes.UpdateAuditLogMutation
+>;
+export const deleteAuditLog = /* GraphQL */ `mutation DeleteAuditLog(
+  $input: DeleteAuditLogInput!
+  $condition: ModelAuditLogConditionInput
+) {
+  deleteAuditLog(input: $input, condition: $condition) {
+    id
+    orgId
+    action
+    entityId
+    entityType
+    entityName
+    userImage
+    userName
+    userId
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteAuditLogMutationVariables,
+  APITypes.DeleteAuditLogMutation
+>;
 export const createCard = /* GraphQL */ `mutation CreateCard(
   $input: CreateCardInput!
   $condition: ModelCardConditionInput

@@ -5,10 +5,12 @@ import { InputType, ReturnType } from "./types";
 import { generateClient } from "aws-amplify/api";
 import { deleteCard as deleteCardMutation } from "@/graphql/mutations";
 import { revalidatePath } from "next/cache";
-import { createSafeAction } from "@/lib/create-safe-action";
+import { createSafeAction } from "@/lib/createSafeAction";
 import { DeleteCardSchema } from "./schema";
 import config from "@/amplifyconfiguration.json";
 import { Amplify } from "aws-amplify";
+import { createAuditLog } from "@/lib/createAuditLog";
+import { Action, EntityType } from "@/API";
 
 Amplify.configure(config);
 const handler = async (data: InputType): Promise<ReturnType> => {
@@ -31,6 +33,12 @@ const handler = async (data: InputType): Promise<ReturnType> => {
           _version,
         },
       },
+    });
+    await createAuditLog({
+      entityId: card.data.deleteCard.id,
+      entityName: card.data.deleteCard.name,
+      entityType: EntityType.CARD,
+      action: Action.DELETE,
     });
   } catch (error) {
     return {

@@ -1,3 +1,44 @@
+type MemberSubscription @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  orgId: String
+  userId: String
+  stripeCustomerId: String
+  stripeSubscriptionId: String
+  stripePriceId: String
+  stripeCurrentPeriodEnd: AWSDateTime
+}
+
+type Limit @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  orgId: String
+  count: Int
+  userId: String
+}
+
+type AuditLog @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  orgId: String
+  action: Action
+  entityId: String
+  entityType: EntityType
+  entityName: String
+  userImage: String
+  userName: String
+  userId: String
+}
+
+enum EntityType {
+  BOARD
+  LIST
+  CARD
+}
+
+enum Action {
+  CREATE
+  UPDATE
+  DELETE
+}
+
 type Card @model @auth(rules: [{allow: public}]) {
   id: ID!
   name: String!

@@ -5,11 +5,13 @@ import { InputType, ReturnType } from "./types";
 import { generateClient } from "aws-amplify/api";
 import { createList as createListMutation } from "@/graphql/mutations";
 import { revalidatePath } from "next/cache";
-import { createSafeAction } from "@/lib/create-safe-action";
+import { createSafeAction } from "@/lib/createSafeAction";
 import { CreateListSchema } from "./schema";
 import config from "@/amplifyconfiguration.json";
 import { Amplify } from "aws-amplify";
 import { getBoard } from "@/graphql/queries";
+import { createAuditLog } from "@/lib/createAuditLog";
+import { Action, EntityType } from "@/API";
 
 Amplify.configure(config);
 const handler = async (data: InputType): Promise<ReturnType> => {
@@ -52,6 +54,13 @@ const handler = async (data: InputType): Promise<ReturnType> => {
           order: 1,
         },
       },
+    });
+
+    await createAuditLog({
+      entityId: list.data.createList.id,
+      entityName: list.data.createList.name,
+      entityType: EntityType.LIST,
+      action: Action.CREATE,
     });
   } catch (error) {
     return {

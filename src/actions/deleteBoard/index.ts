@@ -3,13 +3,20 @@
 import { auth } from "@clerk/nextjs";
 import { InputType, ReturnType } from "./types";
 import { generateClient } from "aws-amplify/api";
-import { deleteBoard as deleteBoardMutation } from "@/graphql/mutations";
+import {
+  deleteBoard as deleteBoardMutation,
+  deleteList as deleteListMutation,
+  deleteCard as deleteCardMutation,
+} from "@/graphql/mutations";
 import { revalidatePath } from "next/cache";
-import { createSafeAction } from "@/lib/create-safe-action";
+import { createSafeAction } from "@/lib/createSafeAction";
 import { DeleteBoardSchema } from "./schema";
 import config from "@/amplifyconfiguration.json";
 import { Amplify } from "aws-amplify";
 import { redirect } from "next/navigation";
+import { createAuditLog } from "@/lib/createAuditLog";
+import { Action, EntityType } from "@/API";
+import { decreaseAvailableCount } from "@/lib/limit";
 
 Amplify.configure(config);
 const handler = async (data: InputType): Promise<ReturnType> => {
@@ -32,6 +39,15 @@ const handler = async (data: InputType): Promise<ReturnType> => {
           _version,
         },
       },
+    });
+
+    await decreaseAvailableCount();
+
+    await createAuditLog({
+      entityId: board.data.deleteBoard.id,
+      entityName: board.data.deleteBoard.name,
+      entityType: EntityType.BOARD,
+      action: Action.DELETE,
     });
   } catch (error) {
     return {

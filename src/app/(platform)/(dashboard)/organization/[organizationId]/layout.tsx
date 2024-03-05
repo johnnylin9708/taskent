@@ -1,6 +1,6 @@
 import { startCase } from "lodash";
 
-import { OrgControl } from "@/components/OrgControl";
+import { OrgControl } from "@/components/orgControl";
 import { auth } from "@clerk/nextjs";
 
 export async function generateMetadata() {

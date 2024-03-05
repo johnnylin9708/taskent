@@ -5,12 +5,13 @@ import { InputType, ReturnType } from "./types";
 import { generateClient } from "aws-amplify/api";
 import { createCard as createCardMutation } from "@/graphql/mutations";
 import { revalidatePath } from "next/cache";
-import { createSafeAction } from "@/lib/create-safe-action";
+import { createSafeAction } from "@/lib/createSafeAction";
 import { CopyCardSchema } from "./schema";
 import config from "@/amplifyconfiguration.json";
 import { Amplify } from "aws-amplify";
 import { getCard } from "@/graphql/queries";
-import { Card } from "@/API";
+import { Action, Card, EntityType } from "@/API";
+import { createAuditLog } from "@/lib/createAuditLog";
 
 Amplify.configure(config);
 const handler = async (data: InputType): Promise<ReturnType> => {
@@ -46,6 +47,13 @@ const handler = async (data: InputType): Promise<ReturnType> => {
           listID: oldCard.listID,
         },
       },
+    });
+
+    await createAuditLog({
+      entityId: card.data.createCard.id,
+      entityName: card.data.createCard.name,
+      entityType: EntityType.CARD,
+      action: Action.CREATE,
     });
   } catch (error) {
     return {
