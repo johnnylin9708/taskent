@@ -4,13 +4,13 @@ import { generateClient } from "aws-amplify/api";
 
 const DAY_IN_MS = 84_400_000;
 
+const client = generateClient();
 export const checkSubscription = async () => {
   const { orgId, userId } = auth();
 
   if (!orgId) {
     return false;
   }
-  const client = generateClient();
   const memberSubscription = await client.graphql({
     query: listMemberSubscriptions,
     variables: {

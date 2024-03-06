@@ -3,7 +3,7 @@ import { OrganizationSwitcher, UserButton } from "@clerk/nextjs";
 import { Plus } from "lucide-react";
 import { MobileSidebar } from "./mobileSidebar";
 import { FormPopover } from "@/components/form/formPopover";
-import { Logo } from "@/components/logo";
+import { Logo } from "./logo";
 
 export const Navbar = () => {
   return (
