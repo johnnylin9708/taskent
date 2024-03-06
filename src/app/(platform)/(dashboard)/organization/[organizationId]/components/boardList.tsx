@@ -4,6 +4,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { MAX_FREE_BOARDS } from "@/constants/board";
 import { listBoards } from "@/graphql/queries";
 import { getAvailableCount } from "@/lib/limit";
+import { checkSubscription } from "@/lib/subscription";
 import { auth } from "@clerk/nextjs";
 import { generateClient } from "aws-amplify/api";
 import { HelpCircle, User2 } from "lucide-react";
@@ -23,7 +24,7 @@ export const BoardList = async () => {
   });
 
   const availableCount = (await getAvailableCount()) || 0;
-
+  const isPro = await checkSubscription();
   return (
     <div className="space-y-4">
       <div className="flex items-center font-semibold text-lg text-neutral-700">
@@ -49,7 +50,9 @@ export const BoardList = async () => {
           >
             <p className="text-sm">Create new board</p>
             <span className="text-xs">
-              {`${MAX_FREE_BOARDS - availableCount}`} remaining
+              {isPro
+                ? "Unlimited"
+                : `${MAX_FREE_BOARDS - availableCount} remaining`}
             </span>
             <Hint
               sideOffset={40}

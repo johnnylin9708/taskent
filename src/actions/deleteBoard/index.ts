@@ -17,6 +17,7 @@ import { redirect } from "next/navigation";
 import { createAuditLog } from "@/lib/createAuditLog";
 import { Action, EntityType } from "@/API";
 import { decreaseAvailableCount } from "@/lib/limit";
+import { checkSubscription } from "@/lib/subscription";
 
 Amplify.configure(config);
 const handler = async (data: InputType): Promise<ReturnType> => {
@@ -27,6 +28,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
     return { error: "Unauthorized" };
   }
 
+  const isPro = await checkSubscription();
   const { id, _version } = data;
   let board;
 
@@ -41,7 +43,9 @@ const handler = async (data: InputType): Promise<ReturnType> => {
       },
     });
 
-    await decreaseAvailableCount();
+    if (!isPro) {
+      await decreaseAvailableCount();
+    }
 
     await createAuditLog({
       entityId: board.data.deleteBoard.id,

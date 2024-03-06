@@ -38,7 +38,6 @@ const handler = async (data: InputType): Promise<ReturnType> => {
       query: createListMutation,
       variables: {
         input: {
-          ...oldList,
           boardID: oldList.boardID,
           name: `${oldList.name} - copy`,
         },

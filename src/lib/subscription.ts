@@ -10,24 +10,15 @@ export const checkSubscription = async () => {
   if (!orgId) {
     return false;
   }
-
   const client = generateClient();
   const memberSubscription = await client.graphql({
     query: listMemberSubscriptions,
     variables: {
       filter: {
-        or: [
-          { orgId: { eq: orgId } },
-          { userId: { eq: userId } },
-          { stripeSubscriptionId: { attributeExists: true } },
-          { stripeCurrentPeriodEnd: { attributeExists: true } },
-          { stripeCustomerId: { attributeExists: true } },
-          { stripePriceId: { attributeExists: true } },
-        ],
+        or: [{ orgId: { eq: orgId } }, { userId: { eq: userId } }],
       },
     },
   });
-
   if (!memberSubscription.data.listMemberSubscriptions.items[0]) {
     return false;
   }

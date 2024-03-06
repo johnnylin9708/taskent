@@ -12,6 +12,7 @@ import { Amplify } from "aws-amplify";
 import { createAuditLog } from "@/lib/createAuditLog";
 import { Action, EntityType } from "@/API";
 import { hasAvailableCount, incrementAvailableCount } from "@/lib/limit";
+import { checkSubscription } from "@/lib/subscription";
 
 Amplify.configure(config);
 const handler = async (data: InputType): Promise<ReturnType> => {
@@ -23,8 +24,9 @@ const handler = async (data: InputType): Promise<ReturnType> => {
   }
 
   const canCreate = await hasAvailableCount();
+  const isPro = await checkSubscription();
 
-  if (!canCreate) {
+  if (!canCreate && !isPro) {
     return {
       error:
         "You've reached your limit of free boards. Please upgrade to create more",
@@ -65,7 +67,9 @@ const handler = async (data: InputType): Promise<ReturnType> => {
       },
     });
 
-    await incrementAvailableCount();
+    if (!isPro) {
+      await incrementAvailableCount();
+    }
 
     await createAuditLog({
       entityId: board.data.createBoard.id,
