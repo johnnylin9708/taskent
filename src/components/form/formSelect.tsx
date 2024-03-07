@@ -49,3 +49,5 @@ export const FormSelect = forwardRef<HTMLInputElement, FormSelectProps>(
     );
   }
 );
+
+FormSelect.displayName = "FormSelect";
