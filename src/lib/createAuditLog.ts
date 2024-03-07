@@ -2,7 +2,10 @@ import { Action, EntityType } from "@/API";
 import { auth, currentUser } from "@clerk/nextjs";
 import { generateClient } from "aws-amplify/api";
 import { createAuditLog as createAuditLogMutation } from "@/graphql/mutations";
+import config from "@/amplifyconfiguration.json";
+import { Amplify } from "aws-amplify";
 
+Amplify.configure(config);
 interface Props {
   entityId: string;
   entityType: EntityType;

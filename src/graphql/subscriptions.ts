@@ -207,6 +207,14 @@ export const onCreateCard = /* GraphQL */ `subscription OnCreateCard($filter: Mo
     order
     description
     listID
+    initiator
+    assignee
+    startDate
+    endDate
+    listName
+    userId
+    userName
+    userImage
     createdAt
     updatedAt
     _version
@@ -226,6 +234,14 @@ export const onUpdateCard = /* GraphQL */ `subscription OnUpdateCard($filter: Mo
     order
     description
     listID
+    initiator
+    assignee
+    startDate
+    endDate
+    listName
+    userId
+    userName
+    userImage
     createdAt
     updatedAt
     _version
@@ -245,6 +261,14 @@ export const onDeleteCard = /* GraphQL */ `subscription OnDeleteCard($filter: Mo
     order
     description
     listID
+    initiator
+    assignee
+    startDate
+    endDate
+    listName
+    userId
+    userName
+    userImage
     createdAt
     updatedAt
     _version
@@ -268,6 +292,7 @@ export const onCreateList = /* GraphQL */ `subscription OnCreateList($filter: Mo
       startedAt
       __typename
     }
+    boardName
     createdAt
     updatedAt
     _version
@@ -291,6 +316,7 @@ export const onUpdateList = /* GraphQL */ `subscription OnUpdateList($filter: Mo
       startedAt
       __typename
     }
+    boardName
     createdAt
     updatedAt
     _version
@@ -314,6 +340,7 @@ export const onDeleteList = /* GraphQL */ `subscription OnDeleteList($filter: Mo
       startedAt
       __typename
     }
+    boardName
     createdAt
     updatedAt
     _version

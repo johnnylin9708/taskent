@@ -4,16 +4,20 @@ import { Accordion } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useOrganization, useOrganizationList } from "@clerk/nextjs";
-import { Plus } from "lucide-react";
+import { ChevronLeft, Plus } from "lucide-react";
 import Link from "next/link";
 import { useLocalStorage } from "usehooks-ts";
 import { NavItem, Organization } from "./navItem";
 
 interface SidebarProps {
   storageKey?: string;
+  handleHideSideBar?: () => void;
 }
 
-export const Sidebar = ({ storageKey = "t-sidebar-state" }: SidebarProps) => {
+export const Sidebar = ({
+  storageKey = "t-sidebar-state",
+  handleHideSideBar,
+}: SidebarProps) => {
   const [expanded, setExpanded] = useLocalStorage<Record<string, any>>(
     storageKey,
     {}
@@ -59,6 +63,11 @@ export const Sidebar = ({ storageKey = "t-sidebar-state" }: SidebarProps) => {
 
   return (
     <>
+      <div className="text-right mb-3">
+        <Button className="p-2" variant="ghost" onClick={handleHideSideBar}>
+          <ChevronLeft />
+        </Button>
+      </div>
       <div className="font-medium text-xs flex items-center mb-1">
         <span className="pl-4">Workspaces</span>
         <Button

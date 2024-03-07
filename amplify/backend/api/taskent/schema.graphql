@@ -45,6 +45,14 @@ type Card @model @auth(rules: [{allow: public}]) {
   order: Int
   description: String
   listID: ID! @index(name: "byList")
+  initiator: String
+  assignee: String
+  startDate: AWSDateTime
+  endDate: AWSDateTime
+  listName: String
+  userId: String
+  userName: String
+  userImage: String
 }
 
 type List @model @auth(rules: [{allow: public}]) {
@@ -53,6 +61,7 @@ type List @model @auth(rules: [{allow: public}]) {
   order: Int
   boardID: ID! @index(name: "byBoard")
   Cards: [Card] @hasMany(indexName: "byList", fields: ["id"])
+  boardName: String
 }
 
 type Board @model @auth(rules: [{allow: public}]) {

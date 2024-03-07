@@ -10,12 +10,13 @@ import { Description } from "./description";
 import { Actions } from "./actions";
 import { AuditLog } from "@/API";
 import { Activity } from "./activity";
+import { useOrganizationList } from "@clerk/nextjs";
 
 export const CardModal = () => {
   const id = useCardModal((state) => state.id);
   const isOpen = useCardModal((state) => state.isOpen);
   const onClose = useCardModal((state) => state.onClose);
-
+  const { userMemberships } = useOrganizationList();
   const { data: cardData } = useQuery<CardWithList>({
     queryKey: ["card", id],
     queryFn: () => fetcher(`/api/cards/${id}`),

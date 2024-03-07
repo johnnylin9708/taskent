@@ -1,16 +1,20 @@
 import { listMemberSubscriptions } from "@/graphql/queries";
 import { auth } from "@clerk/nextjs";
-import { generateClient } from "aws-amplify/api";
 
+import { generateClient } from "aws-amplify/api";
+import config from "@/amplifyconfiguration.json";
+import { Amplify } from "aws-amplify";
+
+Amplify.configure(config);
 const DAY_IN_MS = 84_400_000;
 
-const client = generateClient();
 export const checkSubscription = async () => {
   const { orgId, userId } = auth();
 
   if (!orgId) {
     return false;
   }
+  const client = generateClient();
   const memberSubscription = await client.graphql({
     query: listMemberSubscriptions,
     variables: {

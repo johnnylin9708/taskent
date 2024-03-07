@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { FormErrors } from "./formErrors";
 
-interface FormInputProps {
+interface FormDateTimePickerProps {
   id: string;
   label?: string;
   type?: string;
@@ -20,7 +20,10 @@ interface FormInputProps {
   onBlur?: () => void;
 }
 
-export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
+export const FormDateTimePicker = forwardRef<
+  HTMLInputElement,
+  FormDateTimePickerProps
+>(
   (
     {
       id,
@@ -52,12 +55,12 @@ export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
           <Input
             onBlur={onBlur}
             defaultValue={defaultValue}
-            ref={ref}
             required={required}
             name={id}
             id={id}
+            ref={ref}
             placeholder={placeholder}
-            type={type}
+            type="datetime-local"
             disabled={pending || disabled}
             className={cn("text-sm px-2 py-1 h-7", className)}
             aria-describedby={`${id}-error`}
@@ -69,4 +72,4 @@ export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
   }
 );
 
-FormInput.displayName = "FormInput";
+FormDateTimePicker.displayName = "FormDateTimePicker";

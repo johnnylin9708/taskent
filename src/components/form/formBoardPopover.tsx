@@ -25,7 +25,7 @@ interface FormPopoverProps {
   sideOffset?: number;
 }
 
-export const FormPopover = ({
+export const FormBoardPopover = ({
   children,
   side,
   align,
