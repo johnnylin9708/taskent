@@ -46,7 +46,7 @@ const MarketingPage = () => {
         accomplish it all with Taskent.
       </div>
       <Button className="mt-6" size="lg" asChild>
-        <Link href="/sign-up">Get Taskent for free</Link>
+        <Link href="/sign-in">Get Taskent for free</Link>
       </Button>
     </div>
   );
