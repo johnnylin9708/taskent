@@ -9,7 +9,7 @@ import { createSafeAction } from "@/lib/createSafeAction";
 import { CreateListSchema } from "./schema";
 import config from "@/amplifyconfiguration.json";
 import { Amplify } from "aws-amplify";
-import { getBoard } from "@/graphql/queries";
+import { getBoard, listLists } from "@/graphql/queries";
 import { createAuditLog } from "@/lib/createAuditLog";
 import { Action, EntityType } from "@/API";
 
@@ -43,7 +43,15 @@ const handler = async (data: InputType): Promise<ReturnType> => {
       return { error: "Board not found" };
     }
 
-    /* const lastList = await client.graphql({ query: getList }); */
+    let listsData = await client.graphql({
+      query: listLists,
+      variables: {
+        filter: { boardID: { eq: boardId } },
+      },
+    });
+
+    listsData.data.listLists.items.sort((a, b) => a.order - b.order);
+    const listLength = listsData.data.listLists.items.length;
 
     list = await client.graphql({
       query: createListMutation,
@@ -51,7 +59,9 @@ const handler = async (data: InputType): Promise<ReturnType> => {
         input: {
           name,
           boardID: boardId,
-          order: 1,
+          order: listsData.data?.listLists?.items.length
+            ? listsData.data?.listLists?.items[listLength - 1]?.order + 1
+            : 0,
         },
       },
     });

@@ -5,6 +5,10 @@ import { ListWithCards } from "@/types";
 import { ListForm } from "./listForm";
 import { ListItem } from "./listItem";
 import { DragDropContext, Droppable } from "@hello-pangea/dnd";
+import { useAction } from "@/hooks/useAction";
+import { updateListOrder } from "@/actions/updateListOrder";
+import { updateCardOrder } from "@/actions/updateCardOrder";
+import { toast } from "sonner";
 
 interface ListContainerProps {
   data: ListWithCards[];
@@ -21,6 +25,24 @@ function reorder<T>(list: T[], startIndex: number, endIndex: number) {
 
 export const ListContainer = ({ data, boardId }: ListContainerProps) => {
   const [orderedData, setOrderedData] = useState(data);
+
+  const { execute: executeUpdateListOrder } = useAction(updateListOrder, {
+    onSuccess: () => {
+      toast.success("List reordered");
+    },
+    onError: (error) => {
+      toast.error(error);
+    },
+  });
+
+  const { execute: executeUpdateCardOrder } = useAction(updateCardOrder, {
+    onSuccess: () => {
+      toast.success("Card reordered");
+    },
+    onError: (error) => {
+      toast.error(error);
+    },
+  });
 
   useEffect(() => {
     setOrderedData(data);
@@ -41,9 +63,15 @@ export const ListContainer = ({ data, boardId }: ListContainerProps) => {
 
     if (type === "list") {
       const items = reorder(orderedData, source.index, destination.index).map(
-        (item, index) => ({ ...item, order: index })
+        (item, index) => ({
+          ...item,
+          id: item.id,
+          order: index,
+          _version: item._version,
+        })
       );
       setOrderedData(items);
+      executeUpdateListOrder({ items, boardId });
     }
     if (type === "card") {
       let newOrderedData = [...orderedData];
@@ -64,15 +92,22 @@ export const ListContainer = ({ data, boardId }: ListContainerProps) => {
       if (destList.Cards && !destList.Cards?.items) {
         destList.Cards.items = [];
       }
+
       if (source.droppableId === destination.droppableId) {
-        if (!sourceList.Cards?.items) {
+        if (!sourceList.Cards?.items?.length) {
           return;
         }
         const reorderedCards = reorder(
           sourceList.Cards.items,
           source.index,
           destination.index
-        );
+        ).map((item) => ({
+          ...item,
+          id: item.id,
+          order: item.order,
+          listId: item.listID,
+          _version: item._version,
+        }));
 
         reorderedCards.forEach((card, index) => {
           if (!card) return;
@@ -82,6 +117,10 @@ export const ListContainer = ({ data, boardId }: ListContainerProps) => {
         sourceList.Cards.items = reorderedCards;
 
         setOrderedData(newOrderedData);
+        executeUpdateCardOrder({
+          boardId: boardId,
+          items: reorderedCards,
+        });
       } else {
         if (!sourceList.Cards?.items) {
           return;
@@ -115,6 +154,16 @@ export const ListContainer = ({ data, boardId }: ListContainerProps) => {
         });
 
         setOrderedData(newOrderedData);
+        executeUpdateCardOrder({
+          boardId: boardId,
+          items: destList.Cards.items.map((item, index) => ({
+            ...item,
+            id: item?.id,
+            order: index,
+            listId: item?.listID,
+            _version: item?._version,
+          })),
+        });
       }
     }
   };

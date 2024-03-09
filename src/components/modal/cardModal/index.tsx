@@ -10,12 +10,13 @@ import { Description } from "./description";
 import { Actions } from "./actions";
 import { AuditLog } from "@/API";
 import { Activity } from "./activity";
+import { useOrganizationList } from "@clerk/nextjs";
 
 export const CardModal = () => {
   const id = useCardModal((state) => state.id);
   const isOpen = useCardModal((state) => state.isOpen);
   const onClose = useCardModal((state) => state.onClose);
-
+  const { userMemberships } = useOrganizationList();
   const { data: cardData } = useQuery<CardWithList>({
     queryKey: ["card", id],
     queryFn: () => fetcher(`/api/cards/${id}`),
@@ -27,7 +28,7 @@ export const CardModal = () => {
   });
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent>
+      <DialogContent className="h-[70%] overflow-auto">
         {!cardData ? <Header.Skeleton /> : <Header data={cardData} />}
         <div className="grid grid-cols-1 md:grid-cols-4 md:gap-4">
           <div className="col-span-3">

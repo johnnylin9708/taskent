@@ -59,8 +59,8 @@ const handler = async (data: InputType): Promise<ReturnType> => {
     };
   }
 
-  revalidatePath(`/organization/${orgId}`);
-  redirect(`/organization/${orgId}`);
+  revalidatePath(`/workspace/${orgId}`);
+  redirect(`/workspace/${orgId}`);
 };
 
 export const deleteBoard = createSafeAction(DeleteBoardSchema, handler);

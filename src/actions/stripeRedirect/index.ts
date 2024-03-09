@@ -25,7 +25,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
     return { error: "Unauthorized" };
   }
 
-  const settingsUrl = absoluteUrl(`/organization/${orgId}`);
+  const settingsUrl = absoluteUrl(`/workspace/${orgId}`);
 
   let url = "";
 
@@ -83,7 +83,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
     };
   }
 
-  revalidatePath(`/organization/${orgId}`);
+  revalidatePath(`/workspace/${orgId}`);
   return { data: url };
 };
 

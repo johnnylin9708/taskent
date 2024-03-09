@@ -3,7 +3,10 @@ import { createLimit, updateLimit } from "@/graphql/mutations";
 import { listLimits } from "@/graphql/queries";
 import { auth } from "@clerk/nextjs";
 import { generateClient } from "aws-amplify/api";
+import config from "@/amplifyconfiguration.json";
+import { Amplify } from "aws-amplify";
 
+Amplify.configure(config);
 const client = generateClient();
 export const incrementAvailableCount = async () => {
   const { orgId } = auth();

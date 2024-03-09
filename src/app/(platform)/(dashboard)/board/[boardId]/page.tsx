@@ -1,4 +1,4 @@
-import { listCards, listLists } from "@/graphql/queries";
+import { cardsByListID, listCards, listLists } from "@/graphql/queries";
 import { auth } from "@clerk/nextjs";
 import { generateClient } from "aws-amplify/api";
 import { redirect } from "next/navigation";
@@ -13,25 +13,29 @@ const client = generateClient();
 const BoardIdPage = async ({ params }: BoardIdPageProps) => {
   const { orgId } = auth();
 
-  if (!orgId) {
+  /* if (!orgId) {
     redirect("/select-org");
-  }
+  } */
 
-  const listsdata = await client.graphql({
+  let listsdata = await client.graphql({
     query: listLists,
     variables: {
       filter: { boardID: { eq: params.boardId } },
     },
   });
 
+  listsdata.data.listLists.items.sort((a, b) => a.order - b.order);
+
   const listsPromises = listsdata.data.listLists.items.map(async (listItem) => {
-    const cardsData = await client.graphql({
-      query: listCards,
+    let cardsData = await client.graphql({
+      query: cardsByListID,
       variables: {
-        filter: { listID: { eq: listItem.id } },
+        listID: listItem.id,
       },
     });
-    return { ...listItem, Cards: cardsData.data.listCards };
+    cardsData.data.cardsByListID.items =
+      cardsData.data.cardsByListID.items.sort((a, b) => a.order - b.order);
+    return { ...listItem, Cards: cardsData.data.cardsByListID };
   });
 
   const ListWithCardsData = await Promise.all(listsPromises);

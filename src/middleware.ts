@@ -7,7 +7,7 @@ export default authMiddleware({
     if (auth.userId && auth.isPublicRoute) {
       let path = "/select-org";
       if (auth.orgId) {
-        path = `/organization/${auth.orgId}`;
+        path = `/workspace/${auth.orgId}`;
       }
 
       const orgselection = new URL(path, req.url);

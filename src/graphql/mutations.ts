@@ -231,6 +231,15 @@ export const createCard = /* GraphQL */ `mutation CreateCard(
     order
     description
     listID
+    initiator
+    assignee
+    startDate
+    endDate
+    listName
+    userId
+    userName
+    userImage
+    orgId
     createdAt
     updatedAt
     _version
@@ -253,6 +262,15 @@ export const updateCard = /* GraphQL */ `mutation UpdateCard(
     order
     description
     listID
+    initiator
+    assignee
+    startDate
+    endDate
+    listName
+    userId
+    userName
+    userImage
+    orgId
     createdAt
     updatedAt
     _version
@@ -275,6 +293,15 @@ export const deleteCard = /* GraphQL */ `mutation DeleteCard(
     order
     description
     listID
+    initiator
+    assignee
+    startDate
+    endDate
+    listName
+    userId
+    userName
+    userImage
+    orgId
     createdAt
     updatedAt
     _version
@@ -301,6 +328,8 @@ export const createList = /* GraphQL */ `mutation CreateList(
       startedAt
       __typename
     }
+    boardName
+    orgId
     createdAt
     updatedAt
     _version
@@ -327,6 +356,8 @@ export const updateList = /* GraphQL */ `mutation UpdateList(
       startedAt
       __typename
     }
+    boardName
+    orgId
     createdAt
     updatedAt
     _version
@@ -353,6 +384,8 @@ export const deleteList = /* GraphQL */ `mutation DeleteList(
       startedAt
       __typename
     }
+    boardName
+    orgId
     createdAt
     updatedAt
     _version

@@ -11,6 +11,7 @@ import { Activity, Calendar, CreditCard, Layout, Settings } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
+import { revalidatePath } from "next/cache";
 
 export type Organization = {
   id: string;
@@ -26,7 +27,7 @@ interface NavItemProps {
   onExpand: (id: string) => void;
 }
 
-export const NavItem = ({
+export const WorkspaceNavItem = ({
   isExpanded,
   isActive,
   organization,
@@ -39,27 +40,27 @@ export const NavItem = ({
     {
       label: "Boards",
       icon: <Layout className="h-4 w-4 mr-2" />,
-      href: `/organization/${organization.id}`,
+      href: `/workspace/${organization.id}`,
     },
     {
       label: "Calendar",
       icon: <Calendar className="h-4 w-4 mr-2" />,
-      href: `/organization/${organization.id}/calendar`,
+      href: `/workspace/${organization.id}/calendar`,
     },
     {
       label: "Activity",
       icon: <Activity className="h-4 w-4 mr-2" />,
-      href: `/organization/${organization.id}/activity`,
+      href: `/workspace/${organization.id}/activity`,
     },
     {
       label: "Settings",
       icon: <Settings className="h-4 w-4 mr-2" />,
-      href: `/organization/${organization.id}/settings`,
+      href: `/workspace/${organization.id}/settings`,
     },
     {
       label: "Billing",
       icon: <CreditCard className="h-4 w-4 mr-2" />,
-      href: `/organization/${organization.id}/billing`,
+      href: `/workspace/${organization.id}/billing`,
     },
   ];
 
@@ -110,7 +111,7 @@ export const NavItem = ({
   );
 };
 
-NavItem.Skeleton = function SkeletonNavItem() {
+WorkspaceNavItem.Skeleton = function SkeletonNavItem() {
   return (
     <div className="flex items-center gap-x-2">
       <div className="w-10 h-10 relative shrink-0">
