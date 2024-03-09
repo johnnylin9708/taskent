@@ -9,7 +9,7 @@ import { createSafeAction } from "@/lib/createSafeAction";
 import { CopyCardSchema } from "./schema";
 import config from "@/amplifyconfiguration.json";
 import { Amplify } from "aws-amplify";
-import { getCard } from "@/graphql/queries";
+import { getCard, listCards } from "@/graphql/queries";
 import { Action, Card, EntityType } from "@/API";
 import { createAuditLog } from "@/lib/createAuditLog";
 
@@ -37,6 +37,16 @@ const handler = async (data: InputType): Promise<ReturnType> => {
       return { error: "Card not found" };
     }
 
+    let cardsData = await client.graphql({
+      query: listCards,
+      variables: {
+        filter: { listID: { eq: cardToCopy.data.getCard?.listID } },
+      },
+    });
+
+    cardsData.data.listCards.items.sort((a, b) => a.order - b.order);
+    const cardLength = cardsData.data.listCards.items.length;
+
     const oldCard = cardToCopy.data.getCard as Card;
     card = await client.graphql({
       query: createCardMutation,
@@ -45,6 +55,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
           name: `${oldCard.name} - copy`,
           description: oldCard.description,
           listID: oldCard.listID,
+          order: cardsData.data.listCards.items[cardLength - 1].order + 1,
         },
       },
     });
