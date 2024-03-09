@@ -9,7 +9,7 @@ import { createSafeAction } from "@/lib/createSafeAction";
 import { CreateCardSchema } from "./schema";
 import config from "@/amplifyconfiguration.json";
 import { Amplify } from "aws-amplify";
-import { getBoard, getList } from "@/graphql/queries";
+import { getBoard, getList, listCards } from "@/graphql/queries";
 import { createAuditLog } from "@/lib/createAuditLog";
 import { Action, EntityType } from "@/API";
 
@@ -43,17 +43,40 @@ const handler = async (data: InputType): Promise<ReturnType> => {
       return { error: "Board not found" };
     }
 
-    /* const lastList = await client.graphql({ query: getList }); */
-    card = await client.graphql({
-      query: createCardMutation,
+    let cardsData = await client.graphql({
+      query: listCards,
       variables: {
-        input: {
-          name,
-          listID: listId,
-          order: 1,
-        },
+        filter: { listID: { eq: listId } },
       },
     });
+
+    if (cardsData.data.listCards?.items.length) {
+      cardsData.data.listCards.items.sort((a, b) => a.order - b.order);
+      const cardLength = cardsData.data.listCards.items.length;
+      card = await client.graphql({
+        query: createCardMutation,
+        variables: {
+          input: {
+            name,
+            listID: listId,
+            order: cardsData.data.listCards?.items.length
+              ? cardsData.data.listCards?.items[cardLength - 1]?.order + 1
+              : 0,
+          },
+        },
+      });
+    } else {
+      card = await client.graphql({
+        query: createCardMutation,
+        variables: {
+          input: {
+            name,
+            listID: listId,
+            order: 0,
+          },
+        },
+      });
+    }
 
     await createAuditLog({
       entityId: card.data.createCard.id,
@@ -62,6 +85,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
       action: Action.CREATE,
     });
   } catch (error) {
+    console.log(error);
     return {
       error: "Failed to create.",
     };

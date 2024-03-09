@@ -1,13 +1,18 @@
-import { useState } from "react";
-import ReactQuill from "react-quill";
+import { useMemo, useState } from "react";
 import "react-quill/dist/quill.snow.css";
 import { Label } from "../ui/label";
+import dynamic from "next/dynamic";
 
 interface QuillEditorProps {
   label?: string;
+  id?: string;
 }
 
-export const QuillEditor = ({ label }: QuillEditorProps) => {
+export const QuillEditor = ({ label, id }: QuillEditorProps) => {
+  const ReactQuill = useMemo(
+    () => dynamic(() => import("react-quill"), { ssr: false }),
+    []
+  );
   const myColors = [
     "purple",
     "#785412",
@@ -48,15 +53,11 @@ export const QuillEditor = ({ label }: QuillEditorProps) => {
   const [code, setCode] = useState("");
   const handleProcedureContentChange = (content: any) => {
     setCode(content);
-    console.log(content);
   };
   return (
     <>
       {label && (
-        <Label
-          className="text-xs font-semibold text-neutral-700"
-          htmlFor="editor"
-        >
+        <Label className="text-xs font-semibold text-neutral-700" htmlFor={id}>
           {label}
         </Label>
       )}
@@ -67,7 +68,7 @@ export const QuillEditor = ({ label }: QuillEditorProps) => {
         value={code}
         onChange={handleProcedureContentChange}
       />
-      <input hidden id="editor" name="editor" value={code} />
+      <input readOnly hidden id={id} name={id} value={code} />
     </>
   );
 };

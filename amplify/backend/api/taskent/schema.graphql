@@ -42,7 +42,7 @@ enum Action {
 type Card @model @auth(rules: [{allow: public}]) {
   id: ID!
   name: String!
-  order: Int
+  order: Int!
   description: String
   listID: ID! @index(name: "byList")
   initiator: String
@@ -53,15 +53,17 @@ type Card @model @auth(rules: [{allow: public}]) {
   userId: String
   userName: String
   userImage: String
+  orgId: String
 }
 
 type List @model @auth(rules: [{allow: public}]) {
   id: ID!
   name: String!
-  order: Int
+  order: Int!
   boardID: ID! @index(name: "byBoard")
   Cards: [Card] @hasMany(indexName: "byList", fields: ["id"])
   boardName: String
+  orgId: String
 }
 
 type Board @model @auth(rules: [{allow: public}]) {

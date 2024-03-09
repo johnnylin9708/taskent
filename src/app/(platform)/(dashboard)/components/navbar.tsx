@@ -35,7 +35,7 @@ export const Navbar = () => {
         </FormBoardPopover>
       </div>
       <div className="ml-auto flex items-center gap-x-2">
-        <OrganizationSwitcher
+        {/* <OrganizationSwitcher
           hidePersonal
           afterCreateOrganizationUrl="/workspace/:id"
           afterLeaveOrganizationUrl="/select-org"
@@ -49,7 +49,7 @@ export const Navbar = () => {
               },
             },
           }}
-        />
+        /> */}
         <UserButton
           afterSignOutUrl="/"
           appearance={{ elements: { avatarBox: { height: 30, width: 30 } } }}

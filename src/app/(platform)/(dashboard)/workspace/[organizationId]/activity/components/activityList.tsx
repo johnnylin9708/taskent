@@ -4,7 +4,10 @@ import { listAuditLogs } from "@/graphql/queries";
 import { auth } from "@clerk/nextjs";
 import { generateClient } from "aws-amplify/api";
 import { redirect } from "next/navigation";
+import config from "@/amplifyconfiguration.json";
+import { Amplify } from "aws-amplify";
 
+Amplify.configure(config);
 export const ActivityList = async () => {
   const { orgId } = auth();
 

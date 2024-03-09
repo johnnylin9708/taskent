@@ -282,6 +282,7 @@ export const getCard = /* GraphQL */ `query GetCard($id: ID!) {
     userId
     userName
     userImage
+    orgId
     createdAt
     updatedAt
     _version
@@ -311,6 +312,7 @@ export const listCards = /* GraphQL */ `query ListCards(
       userId
       userName
       userImage
+      orgId
       createdAt
       updatedAt
       _version
@@ -350,6 +352,7 @@ export const syncCards = /* GraphQL */ `query SyncCards(
       userId
       userName
       userImage
+      orgId
       createdAt
       updatedAt
       _version
@@ -391,6 +394,7 @@ export const cardsByListID = /* GraphQL */ `query CardsByListID(
       userId
       userName
       userImage
+      orgId
       createdAt
       updatedAt
       _version
@@ -419,6 +423,7 @@ export const getList = /* GraphQL */ `query GetList($id: ID!) {
       __typename
     }
     boardName
+    orgId
     createdAt
     updatedAt
     _version
@@ -440,6 +445,7 @@ export const listLists = /* GraphQL */ `query ListLists(
       order
       boardID
       boardName
+      orgId
       createdAt
       updatedAt
       _version
@@ -471,6 +477,7 @@ export const syncLists = /* GraphQL */ `query SyncLists(
       order
       boardID
       boardName
+      orgId
       createdAt
       updatedAt
       _version
@@ -504,6 +511,7 @@ export const listsByBoardID = /* GraphQL */ `query ListsByBoardID(
       order
       boardID
       boardName
+      orgId
       createdAt
       updatedAt
       _version

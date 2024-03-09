@@ -3,11 +3,13 @@
 import { Accordion } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useOrganization, useOrganizationList } from "@clerk/nextjs";
+import { useOrganization, useOrganizationList, useUser } from "@clerk/nextjs";
 import { ChevronLeft, Plus } from "lucide-react";
 import Link from "next/link";
 import { useLocalStorage } from "usehooks-ts";
-import { NavItem, Organization } from "./navItem";
+import { Organization, WorkspaceNavItem } from "./workspaceNavItem";
+import { User, UserNavItem } from "./userNavItem";
+import { useParams } from "next/navigation";
 
 interface SidebarProps {
   storageKey?: string;
@@ -24,6 +26,9 @@ export const Sidebar = ({
   );
   const { organization: activeOrganization, isLoaded: isLoadedOrg } =
     useOrganization();
+
+  const { user } = useUser();
+  const { organizationId } = useParams();
 
   const { userMemberships, isLoaded: isLoadedOrgList } = useOrganizationList({
     userMemberships: {
@@ -53,9 +58,9 @@ export const Sidebar = ({
           <Skeleton className="h-10 w-10" />
         </div>
         <div className="space-y-2">
-          <NavItem.Skeleton />
-          <NavItem.Skeleton />
-          <NavItem.Skeleton />
+          <WorkspaceNavItem.Skeleton />
+          <WorkspaceNavItem.Skeleton />
+          <WorkspaceNavItem.Skeleton />
         </div>
       </>
     );
@@ -88,7 +93,7 @@ export const Sidebar = ({
         className="space-y-2"
       >
         {userMemberships.data.map(({ organization }) => (
-          <NavItem
+          <WorkspaceNavItem
             key={organization.id}
             isActive={activeOrganization?.id === organization.id}
             isExpanded={expanded[organization.id]}
@@ -96,6 +101,22 @@ export const Sidebar = ({
             onExpand={onExpand}
           />
         ))}
+
+        {user && (
+          <UserNavItem
+            key={user.id}
+            isActive={organizationId === user.id}
+            isExpanded={expanded[user.id]}
+            user={
+              {
+                name: user.fullName,
+                id: user.id,
+                imageUrl: user.imageUrl,
+              } as User
+            }
+            onExpand={onExpand}
+          />
+        )}
       </Accordion>
     </>
   );

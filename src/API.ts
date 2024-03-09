@@ -249,7 +249,7 @@ export type DeleteAuditLogInput = {
 export type CreateCardInput = {
   id?: string | null;
   name: string;
-  order?: number | null;
+  order: number;
   description?: string | null;
   listID: string;
   initiator?: string | null;
@@ -260,6 +260,7 @@ export type CreateCardInput = {
   userId?: string | null;
   userName?: string | null;
   userImage?: string | null;
+  orgId?: string | null;
   _version?: number | null;
 };
 
@@ -276,6 +277,7 @@ export type ModelCardConditionInput = {
   userId?: ModelStringInput | null;
   userName?: ModelStringInput | null;
   userImage?: ModelStringInput | null;
+  orgId?: ModelStringInput | null;
   and?: Array<ModelCardConditionInput | null> | null;
   or?: Array<ModelCardConditionInput | null> | null;
   not?: ModelCardConditionInput | null;
@@ -302,7 +304,7 @@ export type Card = {
   __typename: "Card";
   id: string;
   name: string;
-  order?: number | null;
+  order: number;
   description?: string | null;
   listID: string;
   initiator?: string | null;
@@ -313,6 +315,7 @@ export type Card = {
   userId?: string | null;
   userName?: string | null;
   userImage?: string | null;
+  orgId?: string | null;
   createdAt: string;
   updatedAt: string;
   _version: number;
@@ -334,6 +337,7 @@ export type UpdateCardInput = {
   userId?: string | null;
   userName?: string | null;
   userImage?: string | null;
+  orgId?: string | null;
   _version?: number | null;
 };
 
@@ -345,9 +349,10 @@ export type DeleteCardInput = {
 export type CreateListInput = {
   id?: string | null;
   name: string;
-  order?: number | null;
+  order: number;
   boardID: string;
   boardName?: string | null;
+  orgId?: string | null;
   _version?: number | null;
 };
 
@@ -356,6 +361,7 @@ export type ModelListConditionInput = {
   order?: ModelIntInput | null;
   boardID?: ModelIDInput | null;
   boardName?: ModelStringInput | null;
+  orgId?: ModelStringInput | null;
   and?: Array<ModelListConditionInput | null> | null;
   or?: Array<ModelListConditionInput | null> | null;
   not?: ModelListConditionInput | null;
@@ -366,10 +372,11 @@ export type List = {
   __typename: "List";
   id: string;
   name: string;
-  order?: number | null;
+  order: number;
   boardID: string;
   Cards?: ModelCardConnection | null;
   boardName?: string | null;
+  orgId?: string | null;
   createdAt: string;
   updatedAt: string;
   _version: number;
@@ -379,7 +386,7 @@ export type List = {
 
 export type ModelCardConnection = {
   __typename: "ModelCardConnection";
-  items?: Array<Card | null>;
+  items?: Array<Card>;
   nextToken?: string | null;
   startedAt?: number | null;
 };
@@ -390,6 +397,7 @@ export type UpdateListInput = {
   order?: number | null;
   boardID?: string | null;
   boardName?: string | null;
+  orgId?: string | null;
   _version?: number | null;
 };
 
@@ -486,7 +494,7 @@ export type ModelMemberSubscriptionFilterInput = {
 
 export type ModelMemberSubscriptionConnection = {
   __typename: "ModelMemberSubscriptionConnection";
-  items: Array<MemberSubscription | null>;
+  items?: Array<MemberSubscription | null>;
   nextToken?: string | null;
   startedAt?: number | null;
 };
@@ -504,7 +512,7 @@ export type ModelLimitFilterInput = {
 
 export type ModelLimitConnection = {
   __typename: "ModelLimitConnection";
-  items: Array<Limit | null>;
+  items?: Array<Limit | null>;
   nextToken?: string | null;
   startedAt?: number | null;
 };
@@ -527,7 +535,7 @@ export type ModelAuditLogFilterInput = {
 
 export type ModelAuditLogConnection = {
   __typename: "ModelAuditLogConnection";
-  items: Array<AuditLog | null>;
+  items?: Array<AuditLog | null>;
   nextToken?: string | null;
   startedAt?: number | null;
 };
@@ -546,6 +554,7 @@ export type ModelCardFilterInput = {
   userId?: ModelStringInput | null;
   userName?: ModelStringInput | null;
   userImage?: ModelStringInput | null;
+  orgId?: ModelStringInput | null;
   and?: Array<ModelCardFilterInput | null> | null;
   or?: Array<ModelCardFilterInput | null> | null;
   not?: ModelCardFilterInput | null;
@@ -563,6 +572,7 @@ export type ModelListFilterInput = {
   order?: ModelIntInput | null;
   boardID?: ModelIDInput | null;
   boardName?: ModelStringInput | null;
+  orgId?: ModelStringInput | null;
   and?: Array<ModelListFilterInput | null> | null;
   or?: Array<ModelListFilterInput | null> | null;
   not?: ModelListFilterInput | null;
@@ -587,7 +597,7 @@ export type ModelBoardFilterInput = {
 
 export type ModelBoardConnection = {
   __typename: "ModelBoardConnection";
-  items: Array<Board | null>;
+  items?: Array<Board | null>;
   nextToken?: string | null;
   startedAt?: number | null;
 };
@@ -686,6 +696,7 @@ export type ModelSubscriptionCardFilterInput = {
   userId?: ModelSubscriptionStringInput | null;
   userName?: ModelSubscriptionStringInput | null;
   userImage?: ModelSubscriptionStringInput | null;
+  orgId?: ModelSubscriptionStringInput | null;
   and?: Array<ModelSubscriptionCardFilterInput | null> | null;
   or?: Array<ModelSubscriptionCardFilterInput | null> | null;
   _deleted?: ModelBooleanInput | null;
@@ -697,6 +708,7 @@ export type ModelSubscriptionListFilterInput = {
   order?: ModelSubscriptionIntInput | null;
   boardID?: ModelSubscriptionIDInput | null;
   boardName?: ModelSubscriptionStringInput | null;
+  orgId?: ModelSubscriptionStringInput | null;
   and?: Array<ModelSubscriptionListFilterInput | null> | null;
   or?: Array<ModelSubscriptionListFilterInput | null> | null;
   _deleted?: ModelBooleanInput | null;
@@ -931,7 +943,7 @@ export type CreateCardMutation = {
     __typename: "Card";
     id: string;
     name: string;
-    order?: number | null;
+    order: number;
     description?: string | null;
     listID: string;
     initiator?: string | null;
@@ -942,6 +954,7 @@ export type CreateCardMutation = {
     userId?: string | null;
     userName?: string | null;
     userImage?: string | null;
+    orgId?: string | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -960,7 +973,7 @@ export type UpdateCardMutation = {
     __typename: "Card";
     id: string;
     name: string;
-    order?: number | null;
+    order: number;
     description?: string | null;
     listID: string;
     initiator?: string | null;
@@ -971,6 +984,7 @@ export type UpdateCardMutation = {
     userId?: string | null;
     userName?: string | null;
     userImage?: string | null;
+    orgId?: string | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -989,7 +1003,7 @@ export type DeleteCardMutation = {
     __typename: "Card";
     id: string;
     name: string;
-    order?: number | null;
+    order: number;
     description?: string | null;
     listID: string;
     initiator?: string | null;
@@ -1000,6 +1014,7 @@ export type DeleteCardMutation = {
     userId?: string | null;
     userName?: string | null;
     userImage?: string | null;
+    orgId?: string | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -1018,7 +1033,7 @@ export type CreateListMutation = {
     __typename: "List";
     id: string;
     name: string;
-    order?: number | null;
+    order: number;
     boardID: string;
     Cards?: {
       __typename: "ModelCardConnection";
@@ -1026,6 +1041,7 @@ export type CreateListMutation = {
       startedAt?: number | null;
     } | null;
     boardName?: string | null;
+    orgId?: string | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -1044,7 +1060,7 @@ export type UpdateListMutation = {
     __typename: "List";
     id: string;
     name: string;
-    order?: number | null;
+    order: number;
     boardID: string;
     Cards?: {
       __typename: "ModelCardConnection";
@@ -1052,6 +1068,7 @@ export type UpdateListMutation = {
       startedAt?: number | null;
     } | null;
     boardName?: string | null;
+    orgId?: string | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -1070,7 +1087,7 @@ export type DeleteListMutation = {
     __typename: "List";
     id: string;
     name: string;
-    order?: number | null;
+    order: number;
     boardID: string;
     Cards?: {
       __typename: "ModelCardConnection";
@@ -1078,6 +1095,7 @@ export type DeleteListMutation = {
       startedAt?: number | null;
     } | null;
     boardName?: string | null;
+    orgId?: string | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -1425,7 +1443,7 @@ export type GetCardQuery = {
     __typename: "Card";
     id: string;
     name: string;
-    order?: number | null;
+    order: number;
     description?: string | null;
     listID: string;
     initiator?: string | null;
@@ -1436,6 +1454,7 @@ export type GetCardQuery = {
     userId?: string | null;
     userName?: string | null;
     userImage?: string | null;
+    orgId?: string | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -1457,7 +1476,7 @@ export type ListCardsQuery = {
       __typename: "Card";
       id: string;
       name: string;
-      order?: number | null;
+      order: number;
       description?: string | null;
       listID: string;
       initiator?: string | null;
@@ -1468,6 +1487,7 @@ export type ListCardsQuery = {
       userId?: string | null;
       userName?: string | null;
       userImage?: string | null;
+      orgId?: string | null;
       createdAt: string;
       updatedAt: string;
       _version: number;
@@ -1493,7 +1513,7 @@ export type SyncCardsQuery = {
       __typename: "Card";
       id: string;
       name: string;
-      order?: number | null;
+      order: number;
       description?: string | null;
       listID: string;
       initiator?: string | null;
@@ -1504,6 +1524,7 @@ export type SyncCardsQuery = {
       userId?: string | null;
       userName?: string | null;
       userImage?: string | null;
+      orgId?: string | null;
       createdAt: string;
       updatedAt: string;
       _version: number;
@@ -1530,7 +1551,7 @@ export type CardsByListIDQuery = {
       __typename: "Card";
       id: string;
       name: string;
-      order?: number | null;
+      order: number;
       description?: string | null;
       listID: string;
       initiator?: string | null;
@@ -1541,6 +1562,7 @@ export type CardsByListIDQuery = {
       userId?: string | null;
       userName?: string | null;
       userImage?: string | null;
+      orgId?: string | null;
       createdAt: string;
       updatedAt: string;
       _version: number;
@@ -1561,7 +1583,7 @@ export type GetListQuery = {
     __typename: "List";
     id: string;
     name: string;
-    order?: number | null;
+    order: number;
     boardID: string;
     Cards?: {
       __typename: "ModelCardConnection";
@@ -1569,6 +1591,7 @@ export type GetListQuery = {
       startedAt?: number | null;
     } | null;
     boardName?: string | null;
+    orgId?: string | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -1590,9 +1613,10 @@ export type ListListsQuery = {
       __typename: "List";
       id: string;
       name: string;
-      order?: number | null;
+      order: number;
       boardID: string;
       boardName?: string | null;
+      orgId?: string | null;
       createdAt: string;
       updatedAt: string;
       _version: number;
@@ -1618,9 +1642,10 @@ export type SyncListsQuery = {
       __typename: "List";
       id: string;
       name: string;
-      order?: number | null;
+      order: number;
       boardID: string;
       boardName?: string | null;
+      orgId?: string | null;
       createdAt: string;
       updatedAt: string;
       _version: number;
@@ -1647,9 +1672,10 @@ export type ListsByBoardIDQuery = {
       __typename: "List";
       id: string;
       name: string;
-      order?: number | null;
+      order: number;
       boardID: string;
       boardName?: string | null;
+      orgId?: string | null;
       createdAt: string;
       updatedAt: string;
       _version: number;
@@ -1957,7 +1983,7 @@ export type OnCreateCardSubscription = {
     __typename: "Card";
     id: string;
     name: string;
-    order?: number | null;
+    order: number;
     description?: string | null;
     listID: string;
     initiator?: string | null;
@@ -1968,6 +1994,7 @@ export type OnCreateCardSubscription = {
     userId?: string | null;
     userName?: string | null;
     userImage?: string | null;
+    orgId?: string | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -1985,7 +2012,7 @@ export type OnUpdateCardSubscription = {
     __typename: "Card";
     id: string;
     name: string;
-    order?: number | null;
+    order: number;
     description?: string | null;
     listID: string;
     initiator?: string | null;
@@ -1996,6 +2023,7 @@ export type OnUpdateCardSubscription = {
     userId?: string | null;
     userName?: string | null;
     userImage?: string | null;
+    orgId?: string | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -2013,7 +2041,7 @@ export type OnDeleteCardSubscription = {
     __typename: "Card";
     id: string;
     name: string;
-    order?: number | null;
+    order: number;
     description?: string | null;
     listID: string;
     initiator?: string | null;
@@ -2024,6 +2052,7 @@ export type OnDeleteCardSubscription = {
     userId?: string | null;
     userName?: string | null;
     userImage?: string | null;
+    orgId?: string | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -2041,7 +2070,7 @@ export type OnCreateListSubscription = {
     __typename: "List";
     id: string;
     name: string;
-    order?: number | null;
+    order: number;
     boardID: string;
     Cards?: {
       __typename: "ModelCardConnection";
@@ -2049,6 +2078,7 @@ export type OnCreateListSubscription = {
       startedAt?: number | null;
     } | null;
     boardName?: string | null;
+    orgId?: string | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -2066,7 +2096,7 @@ export type OnUpdateListSubscription = {
     __typename: "List";
     id: string;
     name: string;
-    order?: number | null;
+    order: number;
     boardID: string;
     Cards?: {
       __typename: "ModelCardConnection";
@@ -2074,6 +2104,7 @@ export type OnUpdateListSubscription = {
       startedAt?: number | null;
     } | null;
     boardName?: string | null;
+    orgId?: string | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -2091,7 +2122,7 @@ export type OnDeleteListSubscription = {
     __typename: "List";
     id: string;
     name: string;
-    order?: number | null;
+    order: number;
     boardID: string;
     Cards?: {
       __typename: "ModelCardConnection";
@@ -2099,6 +2130,7 @@ export type OnDeleteListSubscription = {
       startedAt?: number | null;
     } | null;
     boardName?: string | null;
+    orgId?: string | null;
     createdAt: string;
     updatedAt: string;
     _version: number;

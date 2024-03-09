@@ -9,7 +9,7 @@ import { createSafeAction } from "@/lib/createSafeAction";
 import { CopyListSchema } from "./schema";
 import config from "@/amplifyconfiguration.json";
 import { Amplify } from "aws-amplify";
-import { getList } from "@/graphql/queries";
+import { getList, listLists } from "@/graphql/queries";
 import { Action, EntityType, List } from "@/API";
 import { createAuditLog } from "@/lib/createAuditLog";
 
@@ -33,6 +33,16 @@ const handler = async (data: InputType): Promise<ReturnType> => {
       },
     });
 
+    let listsData = await client.graphql({
+      query: listLists,
+      variables: {
+        filter: { boardID: { eq: boardId } },
+      },
+    });
+
+    listsData.data.listLists.items.sort((a, b) => a.order - b.order);
+    const listLength = listsData.data.listLists.items.length;
+
     const oldList = oldListData.data.getList as List;
     list = await client.graphql({
       query: createListMutation,
@@ -40,6 +50,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
         input: {
           boardID: oldList.boardID,
           name: `${oldList.name} - copy`,
+          order: listsData.data.listLists.items[listLength - 1].order + 1,
         },
       },
     });
